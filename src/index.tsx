@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './state/store';
 import App from './App';
+import './styles/styles.css';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';

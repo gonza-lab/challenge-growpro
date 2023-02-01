@@ -1,5 +1,14 @@
-const BycicleList = () => {
-  return <div>BycicleList</div>;
+import Box from '@mui/material/Box';
+import Hero from '../components/Atoms/Hero';
+import BycicleList from '../components/Molecules/BycicleList';
+
+const BycicleHome = () => {
+  return (
+    <Box>
+      <Hero />
+      <BycicleList />
+    </Box>
+  );
 };
 
-export default BycicleList;
+export default BycicleHome;
