@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 import useForm from '../../../hooks/useForm';
 import Bycicle from '../../../interfaces/Bycicle';
 import BYCICLES from '../../../utils/Bycicle';
+import getByciclePrice from '../../../utils/getByciclePrice';
 import BillingAddressForm from '../../Atoms/BillingAddressForm';
 import OrderSummary from '../../Atoms/OrderSummary';
 import PaymentForm from '../../Atoms/PaymentForm';
@@ -47,6 +48,7 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
       cvv: { required: true, min: 3 },
     },
   });
+  const [total, setTotal] = useState(0);
 
   const handleNext = () => {
     let isValid = true;
@@ -58,9 +60,18 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
 
     if (activeStep === steps.length - 1) {
       console.log(form);
-    } else {
+      return;
+    } else if (activeStep === steps.length - 2) {
+      setTotal(
+        getByciclePrice({
+          days: form.numberDays as any,
+          startDate: form.startDate as any,
+          type: bycicle.type,
+        })
+      );
       setActiveStep(activeStep + 1);
     }
+    setActiveStep(activeStep + 1);
   };
 
   const handleBack = () => {
@@ -103,7 +114,11 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
           <Box
             sx={{ display: activeStep === steps.length - 1 ? 'block' : 'none' }}
           >
-            <OrderSummary values={form as any} />
+            <OrderSummary
+              values={form as any}
+              bycicle={bycicle}
+              total={total}
+            />
           </Box>
         </form>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>

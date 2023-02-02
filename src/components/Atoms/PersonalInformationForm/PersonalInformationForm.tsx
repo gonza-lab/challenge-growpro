@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useState, useEffect } from 'react';
-import { Grid, TextField, Typography } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs, { Dayjs } from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -30,12 +30,13 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
   const [startDate, setStartDate] = useState<Dayjs | null>(
     dayjs().startOf('D')
   );
-  const [endDate, setEndDate] = useState<Dayjs | null>(dayjs());
+  const [endDate, setEndDate] = useState<Dayjs | null>(dayjs().add(2, 'days'));
   const [numberDays, setNumberDays] = useState(1);
 
   useEffect(() => {
     const difference = dayjs(endDate).diff(dayjs(startDate), 'day', false) + 1;
     setNumberDays(difference);
+    setValue('startDate', startDate);
     setValue('numberDays', difference);
   }, [startDate, endDate]);
 

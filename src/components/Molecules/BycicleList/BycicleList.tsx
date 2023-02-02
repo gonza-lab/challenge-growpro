@@ -16,7 +16,7 @@ const BycicleList = () => {
   const ids = useSelector(selectByciclesIds);
 
   return (
-    <Container sx={{ py: 8 }} maxWidth="xl">
+    <Container sx={{ py: { xs: 2, md: 8 } }} maxWidth="xl">
       <Grid container spacing={4}>
         {status === BycicleStatus.loadingBycicles ? (
           <Grid

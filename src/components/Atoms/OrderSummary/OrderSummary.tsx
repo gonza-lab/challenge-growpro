@@ -1,5 +1,8 @@
 import { Grid, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { FC } from 'react';
+import Bycicle from '../../../interfaces/Bycicle';
+import BYCICLES from '../../../utils/Bycicle';
+import toMoneyFormat from '../../../utils/toMoneyFormat';
 
 interface OrderSummaryProps {
   values: {
@@ -8,6 +11,8 @@ interface OrderSummaryProps {
     lastName: string;
     phone: string;
     address1: string;
+    address2: string;
+    state: string;
     city: string;
     zip: string;
     country: string;
@@ -15,24 +20,34 @@ interface OrderSummaryProps {
     cardNumber: string;
     expDate: string;
     cvv: string;
+    numberDays: number;
+    startDate: Date;
   };
+  bycicle: Bycicle;
+  total: number;
 }
 
-const OrderSummary: FC<OrderSummaryProps> = ({ values }) => {
+const OrderSummary: FC<OrderSummaryProps> = ({ values, bycicle, total }) => {
   return (
     <>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
       <List disablePadding>
-        {/* <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-          <ListItemText primary={product.name} secondary={product.desc} />
-          <Typography variant="body2">{product.price}</Typography>
-        </ListItem> */}
+        <ListItem sx={{ py: 1, px: 0 }}>
+          <ListItemText
+            primary={bycicle.name}
+            secondary={BYCICLES[bycicle.type] + ' Bycicle'}
+            secondaryTypographyProps={{
+              textTransform: 'capitalize',
+            }}
+          />
+          <Typography variant="body2">{toMoneyFormat(total)}</Typography>
+        </ListItem>
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            $34.06
+            {toMoneyFormat(total)}
           </Typography>
         </ListItem>
       </List>
@@ -44,7 +59,10 @@ const OrderSummary: FC<OrderSummaryProps> = ({ values }) => {
           <Typography gutterBottom>
             {values.firstName} {values.lastName}
           </Typography>
-          <Typography gutterBottom>{values.address1}</Typography>
+          <Typography gutterBottom>
+            {values.address1}, {values.address2 ? values.address2 + ', ' : ''}
+            {values.zip}, {values.city}, {values.state}, {values.country}
+          </Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>

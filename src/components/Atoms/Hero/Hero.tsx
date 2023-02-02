@@ -6,8 +6,8 @@ const Hero = () => {
   return (
     <Box
       sx={{
-        pt: 8,
-        pb: 6,
+        pt: { xs: 4, md: 8 },
+        pb: { xs: 1, md: 6 },
       }}
     >
       <Container maxWidth="sm">
