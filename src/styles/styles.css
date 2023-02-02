@@ -15,3 +15,7 @@ a {
   align-items: center;
   color: inherit;
 }
+
+.swal2-popup {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}

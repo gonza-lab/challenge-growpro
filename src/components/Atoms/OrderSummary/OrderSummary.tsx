@@ -25,9 +25,15 @@ interface OrderSummaryProps {
   };
   bycicle: Bycicle;
   total: number;
+  bill: string;
 }
 
-const OrderSummary: FC<OrderSummaryProps> = ({ values, bycicle, total }) => {
+const OrderSummary: FC<OrderSummaryProps> = ({
+  values,
+  bycicle,
+  total,
+  bill,
+}) => {
   return (
     <>
       <Typography variant="h6" gutterBottom>
@@ -42,7 +48,19 @@ const OrderSummary: FC<OrderSummaryProps> = ({ values, bycicle, total }) => {
               textTransform: 'capitalize',
             }}
           />
-          <Typography variant="body2">{toMoneyFormat(total)}</Typography>
+          <ListItemText
+            primary={toMoneyFormat(total)}
+            secondary={bill}
+            primaryTypographyProps={{
+              variant: 'body2',
+              textAlign: 'right',
+            }}
+            secondaryTypographyProps={{
+              textTransform: 'capitalize',
+              textAlign: 'right',
+            }}
+            sx={{ flex: 'unset' }}
+          />
         </ListItem>
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />

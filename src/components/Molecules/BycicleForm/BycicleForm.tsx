@@ -1,9 +1,13 @@
 import { Box, Button, Paper, Typography } from '@mui/material';
 import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import useForm from '../../../hooks/useForm';
 import Bycicle from '../../../interfaces/Bycicle';
 import BYCICLES from '../../../utils/Bycicle';
 import getByciclePrice from '../../../utils/getByciclePrice';
+import savePurchaseInLocalStorage from '../../../utils/savePurchaseInLocalStorage';
+import toMoneyFormat from '../../../utils/toMoneyFormat';
 import BillingAddressForm from '../../Atoms/BillingAddressForm';
 import OrderSummary from '../../Atoms/OrderSummary';
 import PaymentForm from '../../Atoms/PaymentForm';
@@ -48,7 +52,11 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
       cvv: { required: true, min: 3 },
     },
   });
-  const [total, setTotal] = useState(0);
+  const [price, setPrice] = useState<{ total: number; bill: string }>({
+    total: 0,
+    bill: '',
+  });
+  const navigate = useNavigate();
 
   const handleNext = () => {
     let isValid = true;
@@ -59,10 +67,23 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
     if (!isValid) return;
 
     if (activeStep === steps.length - 1) {
-      console.log(form);
+      Swal.fire({
+        title:
+          'Are you sure you want to make the purchase? Total price: ' +
+          toMoneyFormat(price.total),
+        showDenyButton: true,
+        confirmButtonText: 'Yes',
+        denyButtonText: `No`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire('Purchased!', '', 'success');
+          savePurchaseInLocalStorage(form);
+          navigate('/');
+        }
+      });
       return;
     } else if (activeStep === steps.length - 2) {
-      setTotal(
+      setPrice(
         getByciclePrice({
           days: form.numberDays as any,
           startDate: form.startDate as any,
@@ -117,7 +138,8 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
             <OrderSummary
               values={form as any}
               bycicle={bycicle}
-              total={total}
+              total={price.total}
+              bill={price.bill}
             />
           </Box>
         </form>
