@@ -1,6 +1,8 @@
 import { Box, Button, Paper, Typography } from '@mui/material';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import useForm from '../../../hooks/useForm';
+import Bycicle from '../../../interfaces/Bycicle';
+import BYCICLES from '../../../utils/Bycicle';
 import BillingAddressForm from '../../Atoms/BillingAddressForm';
 import OrderSummary from '../../Atoms/OrderSummary';
 import PaymentForm from '../../Atoms/PaymentForm';
@@ -20,18 +22,11 @@ const groupsOfForm = [
   ['cardName', 'cardNumber', 'expDate', 'cvv'],
 ];
 
-export type Inputs = {
-  firstName: string;
-  lastName: string;
-  addresLineOne: string;
-  addressLineTwo: string;
-  city: string;
-  state: string;
-  zip: number;
-  country: string;
-};
+interface BycicleFormProps {
+  bycicle: Bycicle;
+}
 
-const BycicleForm = () => {
+const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
   const [activeStep, setActiveStep] = useState(0);
   const { handleChange, form, validate, errors, setValue } = useForm({
     fields: {
@@ -81,6 +76,18 @@ const BycicleForm = () => {
         <StepperForm steps={steps} activeStep={activeStep} />
         <form>
           <Box sx={{ display: activeStep === 0 ? 'block' : 'none' }}>
+            <Typography variant="h6" gutterBottom>
+              Information of Bycicle
+            </Typography>
+            <Typography>
+              <b>Type</b>: {BYCICLES[bycicle.type]}
+            </Typography>
+            <Typography>
+              <b>Name</b>: {bycicle.name}
+            </Typography>
+            <Typography variant="h6" gutterBottom mt={2}>
+              Personal Information
+            </Typography>
             <PersonalInformationForm
               onChangeInput={handleChange}
               errors={errors}

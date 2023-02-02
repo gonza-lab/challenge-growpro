@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import bycicleSlice from './bycicles/slice';
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    bycicles: bycicleSlice,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

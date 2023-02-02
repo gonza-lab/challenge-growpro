@@ -9,8 +9,14 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Bycicle from '../../../interfaces/Bycicle';
+import { useSelector } from 'react-redux';
+import { selectBycicleById } from '../../../state/bycicles/slice';
+import { RootState } from '../../../state/store';
+import { EntityId } from '@reduxjs/toolkit';
 
-interface BycicleCardProps extends Bycicle {}
+interface BycicleCardProps {
+  id: EntityId;
+}
 
 const chip: { label: string; color: 'info' | 'success' | 'warning' }[] = [
   { label: 'Electric', color: 'success' },
@@ -18,12 +24,18 @@ const chip: { label: string; color: 'info' | 'success' | 'warning' }[] = [
   { label: 'Old', color: 'warning' },
 ];
 
-const BycicleCard: FC<BycicleCardProps> = ({ image, name, type }) => {
+const BycicleCard: FC<BycicleCardProps> = ({ id }) => {
   const navigate = useNavigate();
+  const bycicle = useSelector<RootState, Bycicle | undefined>((state) =>
+    selectBycicleById(state, id)
+  );
+
+  if (!bycicle) return <></>;
+  const { name, image, type } = bycicle;
 
   return (
     <Card>
-      <CardActionArea onClick={() => navigate('/5')}>
+      <CardActionArea onClick={() => navigate('/' + id)}>
         <CardMedia
           sx={{ height: '200px' }}
           component="img"

@@ -1,27 +1,42 @@
 import { Container, Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
-import Bycicle from '../../../interfaces/Bycicle';
 import BycicleCard from '../../Atoms/BycicleCard';
+import { useSelector } from 'react-redux';
+import {
+  BycicleState,
+  BycicleStatus,
+  selectByciclesIds,
+} from '../../../state/bycicles/slice';
+import { RootState } from '../../../state/store';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const BycicleList = () => {
-  const [bycicles, setBycicles] = useState<Bycicle[]>([]);
-
-  useEffect(() => {
-    fetch('/api/bycicles')
-      .then<Bycicle[]>((res) => res.json())
-      .then((json) => {
-        setBycicles(json);
-      });
-  }, []);
+  const { status } = useSelector<RootState, BycicleState>(
+    (state) => state.bycicles
+  );
+  const ids = useSelector(selectByciclesIds);
 
   return (
     <Container sx={{ py: 8 }} maxWidth="xl">
       <Grid container spacing={4}>
-        {bycicles.map((bycicle) => (
-          <Grid item key={bycicle.id} xs={12} md={4}>
-            <BycicleCard {...bycicle} />
+        {status === BycicleStatus.loadingBycicles ? (
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <CircularProgress />
           </Grid>
-        ))}
+        ) : (
+          ids.map((id) => (
+            <Grid item key={id} xs={12} md={4}>
+              <BycicleCard id={id} />
+            </Grid>
+          ))
+        )}
       </Grid>
     </Container>
   );

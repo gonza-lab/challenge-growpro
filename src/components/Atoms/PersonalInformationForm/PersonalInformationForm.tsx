@@ -41,18 +41,6 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>
-        Information of Bycicle
-      </Typography>
-      <Typography>
-        <b>Type</b>: Electric
-      </Typography>
-      <Typography>
-        <b>Name</b>: Dangerous
-      </Typography>
-      <Typography variant="h6" gutterBottom mt={2}>
-        Personal Information
-      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
