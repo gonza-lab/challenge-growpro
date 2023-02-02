@@ -4,7 +4,7 @@ import BycicleList from '../components/Molecules/BycicleList';
 
 const BycicleHome = () => {
   return (
-    <Box>
+    <Box component="main">
       <Hero />
       <BycicleList />
     </Box>

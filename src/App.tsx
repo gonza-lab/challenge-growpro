@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Atoms/Layout/Layout';
 
 import NotFoundPage from './pages/404';
-import BycicleDetail from './pages/BycicleDetail';
+import BycicleForm from './pages/BycicleForm';
 import BycicleHome from './pages/BycicleList';
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
     <Routes>
       <Route element={<Layout />} path="/">
         <Route index element={<BycicleHome />} />
-        <Route path=":id" element={<BycicleDetail />} />
+        <Route path=":id" element={<BycicleForm />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
