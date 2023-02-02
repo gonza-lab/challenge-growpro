@@ -1,14 +1,25 @@
 import { Container, Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
+import Bycicle from '../../../interfaces/Bycicle';
 import BycicleCard from '../../Atoms/BycicleCard';
 
-const list = [1, 2, 3, 4, 5, 6, 7, 8, 1, 10];
 const BycicleList = () => {
+  const [bycicles, setBycicles] = useState<Bycicle[]>([]);
+
+  useEffect(() => {
+    fetch('/api/bycicles')
+      .then<Bycicle[]>((res) => res.json())
+      .then((json) => {
+        setBycicles(json);
+      });
+  }, []);
+
   return (
     <Container sx={{ py: 8 }} maxWidth="xl">
       <Grid container spacing={4}>
-        {list.map((item) => (
-          <Grid item key={item} xs={12} md={4}>
-            <BycicleCard />
+        {bycicles.map((bycicle) => (
+          <Grid item key={bycicle.id} xs={12} md={4}>
+            <BycicleCard {...bycicle} />
           </Grid>
         ))}
       </Grid>

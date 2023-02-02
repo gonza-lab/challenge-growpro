@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import {
   Card,
   CardActionArea,
@@ -7,8 +8,17 @@ import {
   Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import Bycicle from '../../../interfaces/Bycicle';
 
-const BycicleCard = () => {
+interface BycicleCardProps extends Bycicle {}
+
+const chip: { label: string; color: 'info' | 'success' | 'warning' }[] = [
+  { label: 'Electric', color: 'success' },
+  { label: 'Normal', color: 'info' },
+  { label: 'Old', color: 'warning' },
+];
+
+const BycicleCard: FC<BycicleCardProps> = ({ image, name, type }) => {
   const navigate = useNavigate();
 
   return (
@@ -17,7 +27,7 @@ const BycicleCard = () => {
         <CardMedia
           sx={{ height: '200px' }}
           component="img"
-          image="https://source.unsplash.com/random"
+          image={image}
           alt="random"
         />
         <CardContent
@@ -30,22 +40,15 @@ const BycicleCard = () => {
           }}
         >
           <Typography gutterBottom variant="h5" component="h2" sx={{ m: 0 }}>
-            Bycicle Electric
+            {name}
             <Chip
               sx={{ ml: 1 }}
-              label="Electrico"
-              color="success"
+              label={chip[type].label}
+              color={chip[type].color}
               size="small"
             />
           </Typography>
-          {/* <Chip label="Electrico" color="info" />
-        <Chip label="Electrico" color="warning" /> */}
         </CardContent>
-        {/* <CardActions>
-        <Button variant="contained" size="small">
-          View
-        </Button>
-      </CardActions> */}
       </CardActionArea>
     </Card>
   );

@@ -37,7 +37,7 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
     const difference = dayjs(endDate).diff(dayjs(startDate), 'day', false) + 1;
     setNumberDays(difference);
     setValue('numberDays', difference);
-  }, [startDate, endDate, setValue]);
+  }, [startDate, endDate]);
 
   return (
     <>

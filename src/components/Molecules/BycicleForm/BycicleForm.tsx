@@ -1,18 +1,11 @@
-import {
-  Box,
-  Button,
-  Paper,
-  Typography,
-  Stepper,
-  Step,
-  StepLabel,
-} from '@mui/material';
+import { Box, Button, Paper, Typography } from '@mui/material';
 import { useState } from 'react';
 import useForm from '../../../hooks/useForm';
-import BillingAddressForm from '../BillingAddressForm';
-import OrderSummary from '../OrderSummary';
-import PaymentForm from '../PaymentForm';
-import PersonalInformationForm from '../PersonalInformationForm';
+import BillingAddressForm from '../../Atoms/BillingAddressForm';
+import OrderSummary from '../../Atoms/OrderSummary';
+import PaymentForm from '../../Atoms/PaymentForm';
+import PersonalInformationForm from '../../Atoms/PersonalInformationForm';
+import StepperForm from '../../Atoms/StepperForm';
 
 const steps = [
   'Personal information',
@@ -85,13 +78,7 @@ const BycicleForm = () => {
         <Typography component="h1" variant="h4" align="center">
           Checkout
         </Typography>
-        <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
+        <StepperForm steps={steps} activeStep={activeStep} />
         <form>
           <Box sx={{ display: activeStep === 0 ? 'block' : 'none' }}>
             <PersonalInformationForm

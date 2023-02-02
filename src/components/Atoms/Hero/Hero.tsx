@@ -27,11 +27,7 @@ const Hero = () => {
           paragraph
         >
           Here you can rent bicycles. There are three types: electric, normal
-          and old. The electric ones cost the base price multiplied by the
-          number of rental days, the normal ones cost the base price for the
-          first three days and then the base price for each extra day. And
-          finally the old ones the base price for the first 5 days and then the
-          base price for each extra day.
+          and old.
         </Typography>
       </Container>
     </Box>

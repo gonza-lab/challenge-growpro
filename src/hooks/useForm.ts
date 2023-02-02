@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 
 interface UseFormProps {
   fields: {
@@ -19,10 +19,10 @@ const useForm = (config: UseFormProps) => {
     [name: string]: boolean;
   }>({});
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-  };
+  }, []);
 
   const validate = (name: string): boolean => {
     let isValid = true;
