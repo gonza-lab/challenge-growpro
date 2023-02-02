@@ -46,11 +46,20 @@ const useForm = (config: UseFormProps) => {
     return isValid;
   };
 
+  const validateFields = (fields: string[]): boolean => {
+    let isValid = true;
+    fields.forEach((field) => {
+      isValid = validate(field) && isValid;
+    });
+
+    return isValid;
+  };
+
   const setValue = (name: string, value: any) => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  return { handleChange, form, validate, errors, setValue };
+  return { handleChange, form, validate, errors, setValue, validateFields };
 };
 
 export default useForm;

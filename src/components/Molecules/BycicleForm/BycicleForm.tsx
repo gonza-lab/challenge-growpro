@@ -1,18 +1,20 @@
-import { Box, Button, Paper, Typography } from '@mui/material';
 import { FC, useState } from 'react';
+import { Box, Button, Paper, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import useForm from '../../../hooks/useForm';
+
 import Bycicle from '../../../interfaces/Bycicle';
+import useForm from '../../../hooks/useForm';
 import BYCICLES from '../../../utils/Bycicle';
 import getByciclePrice from '../../../utils/getByciclePrice';
 import savePurchaseInLocalStorage from '../../../utils/savePurchaseInLocalStorage';
 import toMoneyFormat from '../../../utils/toMoneyFormat';
+
 import BillingAddressForm from '../../Atoms/BillingAddressForm';
 import OrderSummary from '../../Atoms/OrderSummary';
 import PaymentForm from '../../Atoms/PaymentForm';
 import PersonalInformationForm from '../../Atoms/PersonalInformationForm';
 import StepperForm from '../../Atoms/StepperForm';
+import showModal from '../../../utils/showModal';
 
 const steps = [
   'Personal information',
@@ -33,7 +35,7 @@ interface BycicleFormProps {
 
 const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const { handleChange, form, validate, errors, setValue } = useForm({
+  const { handleChange, form, errors, setValue, validateFields } = useForm({
     fields: {
       firstName: { required: true },
       lastName: { required: true },
@@ -58,28 +60,23 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
   });
   const navigate = useNavigate();
 
-  const handleNext = () => {
-    let isValid = true;
-    groupsOfForm[activeStep]?.forEach((field) => {
-      isValid = validate(field) && isValid;
-    });
-
+  const validateForm = () => {
+    let isValid = validateFields(groupsOfForm[activeStep] || []);
     if (!isValid) return;
+  };
+
+  const handleNext = () => {
+    validateForm();
 
     if (activeStep === steps.length - 1) {
-      Swal.fire({
+      showModal({
         title:
           'Are you sure you want to make the purchase? Total price: ' +
           toMoneyFormat(price.total),
-        showDenyButton: true,
-        confirmButtonText: 'Yes',
-        denyButtonText: `No`,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire('Purchased!', '', 'success');
+        callback: () => {
           savePurchaseInLocalStorage(form);
           navigate('/');
-        }
+        },
       });
       return;
     } else if (activeStep === steps.length - 2) {
@@ -90,8 +87,8 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
           type: bycicle.type,
         })
       );
-      setActiveStep(activeStep + 1);
     }
+
     setActiveStep(activeStep + 1);
   };
 
@@ -100,65 +97,59 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
   };
 
   return (
-    <div>
-      <Paper variant="outlined" sx={{ p: { xs: 2, md: 3 } }}>
-        <Typography component="h1" variant="h4" align="center">
-          Checkout
-        </Typography>
-        <StepperForm steps={steps} activeStep={activeStep} />
-        <form>
-          <Box sx={{ display: activeStep === 0 ? 'block' : 'none' }}>
-            <Typography variant="h6" gutterBottom>
-              Information of Bycicle
-            </Typography>
-            <Typography>
-              <b>Type</b>: {BYCICLES[bycicle.type]}
-            </Typography>
-            <Typography>
-              <b>Name</b>: {bycicle.name}
-            </Typography>
-            <Typography variant="h6" gutterBottom mt={2}>
-              Personal Information
-            </Typography>
-            <PersonalInformationForm
-              onChangeInput={handleChange}
-              errors={errors}
-              setValue={setValue}
-            />
-          </Box>
-          <Box sx={{ display: activeStep === 1 ? 'block' : 'none' }}>
-            <BillingAddressForm onChangeInput={handleChange} errors={errors} />
-          </Box>
-          <Box sx={{ display: activeStep === 2 ? 'block' : 'none' }}>
-            <PaymentForm onChangeInput={handleChange} errors={errors} />
-          </Box>
-          <Box
-            sx={{ display: activeStep === steps.length - 1 ? 'block' : 'none' }}
-          >
-            <OrderSummary
-              values={form as any}
-              bycicle={bycicle}
-              total={price.total}
-              bill={price.bill}
-            />
-          </Box>
-        </form>
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-          {activeStep !== 0 && (
-            <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-              Back
-            </Button>
-          )}
-          <Button
-            variant="contained"
-            onClick={handleNext}
-            sx={{ mt: 3, ml: 1 }}
-          >
-            {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-          </Button>
+    <Paper variant="outlined" sx={{ p: { xs: 2, md: 3 } }}>
+      <Typography component="h1" variant="h4" align="center">
+        Checkout
+      </Typography>
+      <StepperForm steps={steps} activeStep={activeStep} />
+      <form>
+        <Box sx={{ display: activeStep === 0 ? 'block' : 'none' }}>
+          <Typography variant="h6" gutterBottom>
+            Information of Bycicle
+          </Typography>
+          <Typography>
+            <b>Type</b>: {BYCICLES[bycicle.type]}
+          </Typography>
+          <Typography>
+            <b>Name</b>: {bycicle.name}
+          </Typography>
+          <Typography variant="h6" gutterBottom mt={2}>
+            Personal Information
+          </Typography>
+          <PersonalInformationForm
+            onChangeInput={handleChange}
+            errors={errors}
+            setValue={setValue}
+          />
         </Box>
-      </Paper>
-    </div>
+        <Box sx={{ display: activeStep === 1 ? 'block' : 'none' }}>
+          <BillingAddressForm onChangeInput={handleChange} errors={errors} />
+        </Box>
+        <Box sx={{ display: activeStep === 2 ? 'block' : 'none' }}>
+          <PaymentForm onChangeInput={handleChange} errors={errors} />
+        </Box>
+        <Box
+          sx={{ display: activeStep === steps.length - 1 ? 'block' : 'none' }}
+        >
+          <OrderSummary
+            values={form as any}
+            bycicle={bycicle}
+            total={price.total}
+            bill={price.bill}
+          />
+        </Box>
+      </form>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        {activeStep !== 0 && (
+          <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+            Back
+          </Button>
+        )}
+        <Button variant="contained" onClick={handleNext} sx={{ mt: 3, ml: 1 }}>
+          {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+        </Button>
+      </Box>
+    </Paper>
   );
 };
 

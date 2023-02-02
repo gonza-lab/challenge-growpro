@@ -1,5 +1,5 @@
-import { Step, StepLabel, Stepper, useMediaQuery } from '@mui/material';
 import { FC } from 'react';
+import { Step, StepLabel, Stepper, useMediaQuery } from '@mui/material';
 
 interface StepperFormProps {
   steps: string[];

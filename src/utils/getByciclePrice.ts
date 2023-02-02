@@ -21,7 +21,7 @@ const getByciclePrice = ({
   switch (type) {
     case 0:
       total = basePrice * days;
-      bill = `${basePrice} x ${days}`;
+      bill = `${basePrice} * ${days}`;
       break;
 
     case 1:

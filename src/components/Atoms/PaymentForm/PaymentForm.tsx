@@ -1,5 +1,5 @@
+import { ChangeEvent, FC, KeyboardEvent } from 'react';
 import { Grid, TextField, Typography } from '@mui/material';
-import { ChangeEvent, FC } from 'react';
 
 const errorMessages = {
   cardName: 'You must enter your name on card.',
@@ -27,6 +27,16 @@ const handleExpDateChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
 const handleMaxChange = (e: ChangeEvent<HTMLInputElement>) => {
   if (e.target.value.length > e.target.maxLength) {
     e.target.value = e.target.value.slice(0, e.target.maxLength);
+  }
+};
+
+const handleDelete = ({ key, target }: KeyboardEvent<HTMLInputElement>) => {
+  const value = (target as HTMLInputElement).value;
+  if (
+    (key === 'Delete' || key === 'Backspace') &&
+    value[value.length - 1] === '-'
+  ) {
+    (target as HTMLInputElement).value = '2';
   }
 };
 
@@ -84,6 +94,7 @@ const PaymentForm: FC<PaymentFormProps> = ({ onChangeInput, errors }) => {
               handleExpDateChange(e as ChangeEvent<HTMLInputElement>);
               onChangeInput(e as ChangeEvent<HTMLInputElement>);
             }}
+            onKeyDown={handleDelete}
             error={errors.expDate}
             helperText={errors.expDate && errorMessages.expDate}
           />

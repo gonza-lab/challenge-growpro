@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
-import Hero from '../components/Atoms/Hero';
-import BycicleList from '../components/Molecules/BycicleList';
+import Hero from '../../components/Atoms/Hero';
+import BycicleList from '../../components/Molecules/BycicleList';
 
 const BycicleHome = () => {
   return (

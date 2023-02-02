@@ -1,5 +1,5 @@
-import { Grid, TextField, Typography } from '@mui/material';
 import { ChangeEvent, FC } from 'react';
+import { Grid, TextField, Typography } from '@mui/material';
 
 const errorMessages = {
   address1: 'You must enter your address.',

@@ -1,5 +1,6 @@
-import { Grid, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { FC } from 'react';
+import { Grid, List, ListItem, ListItemText, Typography } from '@mui/material';
+
 import Bycicle from '../../../interfaces/Bycicle';
 import BYCICLES from '../../../utils/Bycicle';
 import toMoneyFormat from '../../../utils/toMoneyFormat';

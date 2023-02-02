@@ -1,13 +1,14 @@
-import { Container, Grid } from '@mui/material';
-import BycicleCard from '../../Atoms/BycicleCard';
 import { useSelector } from 'react-redux';
+import { Container, Grid } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+
 import {
   BycicleState,
   BycicleStatus,
   selectByciclesIds,
 } from '../../../state/bycicles/slice';
 import { RootState } from '../../../state/store';
-import CircularProgress from '@mui/material/CircularProgress';
+import BycicleCard from '../../Atoms/BycicleCard';
 
 const BycicleList = () => {
   const { status } = useSelector<RootState, BycicleState>(

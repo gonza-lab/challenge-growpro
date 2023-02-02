@@ -1,9 +1,9 @@
 import { ChangeEvent, FC, useState, useEffect } from 'react';
 import { Grid, TextField } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import dayjs, { Dayjs } from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import dayjs, { Dayjs } from 'dayjs';
 
 const errorMessages = {
   firstName: 'You must enter your first name.',
@@ -38,6 +38,7 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
     setNumberDays(difference);
     setValue('startDate', startDate);
     setValue('numberDays', difference);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate]);
 
   return (
