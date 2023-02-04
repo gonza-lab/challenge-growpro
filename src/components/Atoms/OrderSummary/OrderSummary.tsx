@@ -4,6 +4,7 @@ import { Grid, List, ListItem, ListItemText, Typography } from '@mui/material';
 import Bycicle from '../../../interfaces/Bycicle';
 import BYCICLES from '../../../constants/Bycicle';
 import toMoneyFormat from '../../../utils/toMoneyFormat';
+import { useTranslation } from 'react-i18next';
 
 interface OrderSummaryProps {
   values: {
@@ -35,24 +36,21 @@ const OrderSummary: FC<OrderSummaryProps> = ({
   total,
   bill,
 }) => {
+  const { t } = useTranslation();
   return (
     <>
       <Typography variant="h6" gutterBottom>
-        Order summary
+        {t('bycicle_form.steps.review')}
       </Typography>
       <List disablePadding>
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText
             primary={bycicle.name}
             secondary={
-              BYCICLES[bycicle.type] +
-              ' Bycicle. ' +
-              values.numberDays +
-              (values.numberDays > 1 ? ' days' : ' day')
+              t('bycicle.name_with_type.' + BYCICLES[bycicle.type]) +
+              '. ' +
+              t('number_days', { count: values.numberDays })
             }
-            secondaryTypographyProps={{
-              textTransform: 'capitalize',
-            }}
           />
           <ListItemText
             primary={toMoneyFormat(total)}
@@ -78,7 +76,7 @@ const OrderSummary: FC<OrderSummaryProps> = ({
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Shipping
+            {t('shipping')}
           </Typography>
           <Typography gutterBottom>
             {values.firstName} {values.lastName}
@@ -90,23 +88,29 @@ const OrderSummary: FC<OrderSummaryProps> = ({
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Payment details
+            {t('bycicle_form.steps.payment_details')}
           </Typography>
           <Grid container>
             <Grid item xs={6}>
-              <Typography gutterBottom>Card holder</Typography>
+              <Typography gutterBottom>
+                {t('bycicle_form.fields.card_name.label')}
+              </Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography gutterBottom>{values.cardName}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography gutterBottom>Card number</Typography>
+              <Typography gutterBottom>
+                {t('bycicle_form.fields.card_number.label')}
+              </Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography gutterBottom>{values.cardNumber}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography gutterBottom>Expiry date</Typography>
+              <Typography gutterBottom>
+                {t('bycicle_form.fields.exp_date.label')}
+              </Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography gutterBottom>{values.expDate}</Typography>

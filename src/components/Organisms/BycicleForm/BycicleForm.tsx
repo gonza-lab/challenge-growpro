@@ -14,13 +14,14 @@ import OrderSummary from '../../Atoms/OrderSummary';
 import PaymentForm from '../../Atoms/PaymentForm';
 import PersonalInformationForm from '../PersonalInformationForm';
 import StepperForm from '../../Atoms/StepperForm';
-import showModal from '../../../utils/showModal';
+import { useTranslation } from 'react-i18next';
+import Swal from 'sweetalert2';
 
 const steps = [
-  'Personal information',
-  'Billing address',
-  'Payment details',
-  'Review your order',
+  'bycicle_form.steps.personal_information',
+  'bycicle_form.steps.billing_address',
+  'bycicle_form.steps.payment_details',
+  'bycicle_form.steps.review',
 ];
 
 const groupsOfForm = [
@@ -34,6 +35,7 @@ interface BycicleFormProps {
 }
 
 const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
+  const { t } = useTranslation();
   const [activeStep, setActiveStep] = useState(0);
   const { handleChange, form, errors, setValue, validateFields } = useForm({
     fields: {
@@ -85,14 +87,25 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
   };
 
   const handleSubmit = () => {
-    showModal({
+    const props = {
       title:
-        'Are you sure you want to make the purchase? Total price: ' +
-        toMoneyFormat(price.total),
-      callback: () => {
+        t('bycicle_form.submit.question', {
+          price: toMoneyFormat(price.total),
+        }) || '',
+      confirmButtonText: t('bycicle_form.submit.confirm_btn'),
+      denyButtonText: t('bycicle_form.submit.deny_btn'),
+    };
+
+    Swal.fire({
+      showDenyButton: true,
+      ...props,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(t('bycicle_form.submit.success_msg') || '', '', 'success');
+
         PurchaseLocalStorage.add({ ...form, bycicleId: bycicle.id } as any);
         navigate('/');
-      },
+      }
     });
   };
 
@@ -113,16 +126,16 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
       <form style={{ height: '100%' }}>
         <Box sx={{ display: activeStep === 0 ? 'block' : 'none' }}>
           <Typography variant="h6" gutterBottom>
-            Information of Bycicle
+            {t('bycicle_form.information_of_bycicle')}
           </Typography>
           <Typography>
-            <b>Type</b>: {BYCICLES[bycicle.type]}
+            <b>{t('type')}</b>: {t('bycicle.type.' + BYCICLES[bycicle.type])}
           </Typography>
           <Typography>
-            <b>Name</b>: {bycicle.name}
+            <b>{t('name')}</b>: {bycicle.name}
           </Typography>
           <Typography variant="h6" gutterBottom mt={2}>
-            Personal Information
+            {t('bycicle_form.steps.personal_information')}
           </Typography>
           <PersonalInformationForm
             onChangeInput={handleChange}
@@ -150,11 +163,13 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
         {activeStep !== 0 && (
           <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-            Back
+            {t('bycicle_form.back')}
           </Button>
         )}
         <Button variant="contained" onClick={handleNext} sx={{ mt: 3, ml: 1 }}>
-          {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+          {activeStep === steps.length - 1
+            ? t('bycicle_form.submit.btn')
+            : t('bycicle_form.next')}
         </Button>
       </Box>
     </Paper>

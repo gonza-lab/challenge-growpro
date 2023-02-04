@@ -13,7 +13,9 @@ import { useSelector } from 'react-redux';
 import { selectBycicleById } from '../../../state/bycicles/slice';
 import { RootState } from '../../../state/store';
 import { EntityId } from '@reduxjs/toolkit';
-import NUMBER_BASE_DAYS from '../../../constants/A';
+import NUMBER_BASE_DAYS from '../../../constants/NumberBaseDays';
+import { useTranslation } from 'react-i18next';
+import BYCICLES from '../../../constants/Bycicle';
 
 interface BycicleCardProps {
   id: EntityId;
@@ -26,6 +28,7 @@ const chip: { label: string; color: 'info' | 'success' | 'warning' }[] = [
 ];
 
 const BycicleCard: FC<BycicleCardProps> = ({ id }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const bycicle = useSelector<RootState, Bycicle | undefined>((state) =>
     selectBycicleById(state, id)
@@ -56,15 +59,18 @@ const BycicleCard: FC<BycicleCardProps> = ({ id }) => {
             {name}
             <Chip
               sx={{ ml: 1 }}
-              label={chip[type].label}
+              label={t('bycicle.type.' + BYCICLES[type])}
               color={chip[type].color}
               size="small"
             />
           </Typography>
           <Typography color="text.secondary">
             {NUMBER_BASE_DAYS[type]
-              ? `The first ${NUMBER_BASE_DAYS[type]} days cost the base price`
-              : '‎'}
+              ? t('bycicle_card.number_base_days', {
+                  numberBaseDays: NUMBER_BASE_DAYS[type],
+                })
+              : // ? `The first ${NUMBER_BASE_DAYS[type]} days cost the base price`
+                '‎'}
           </Typography>
         </CardContent>
       </CardActionArea>

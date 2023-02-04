@@ -1,4 +1,6 @@
 import { FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import dayjs, { Dayjs } from 'dayjs';
 import { Grid, TextField } from '@mui/material';
 import {
   LocalizationProvider,
@@ -7,7 +9,6 @@ import {
   PickersDayProps,
 } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs, { Dayjs } from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import { useParams } from 'react-router-dom';
 
@@ -44,6 +45,7 @@ const shouldDisableDate = (
 };
 
 const CalendarForm: FC<CalendarFormProps> = ({ setValue }) => {
+  const { t, i18n } = useTranslation();
   const { id } = useParams();
   const [startDate, setStartDate] = useState<Dayjs | null>(
     dayjs().startOf('D')
@@ -52,6 +54,8 @@ const CalendarForm: FC<CalendarFormProps> = ({ setValue }) => {
   const [numberDays, setNumberDays] = useState(1);
   const [purchases] = useState(PurchaseLocalStorage.getAll());
   const [maxEndDate, setMaxEndDate] = useState<Dayjs | null>();
+
+  console.log(i18n.resolvedLanguage);
 
   useEffect(() => {
     const difference = dayjs(endDate).diff(dayjs(startDate), 'day', false) + 1;
@@ -108,11 +112,13 @@ const CalendarForm: FC<CalendarFormProps> = ({ setValue }) => {
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider
+      dateAdapter={AdapterDayjs}
+      adapterLocale={i18n.resolvedLanguage}
+    >
       <Grid item xs={12} sm={6}>
         <MobileDatePicker
-          label="Start date"
-          inputFormat="MM/DD/YYYY"
+          label={t('bycicle_form.fields.start_date.label')}
           value={startDate}
           onChange={(newDate) => {
             setStartDate(dayjs(newDate));
@@ -124,7 +130,9 @@ const CalendarForm: FC<CalendarFormProps> = ({ setValue }) => {
             <TextField
               {...params}
               fullWidth
-              helperText={'Number of days: ' + numberDays}
+              helperText={t('bycicle_form.fields.number_days.label', {
+                numberDays,
+              })}
             />
           )}
           disablePast
@@ -136,8 +144,7 @@ const CalendarForm: FC<CalendarFormProps> = ({ setValue }) => {
       </Grid>
       <Grid item xs={12} sm={6}>
         <MobileDatePicker
-          label="End date"
-          inputFormat="MM/DD/YYYY"
+          label={t('bycicle_form.fields.end_date.label')}
           value={endDate}
           minDate={startDate || dayjs()}
           maxDate={maxEndDate || undefined}

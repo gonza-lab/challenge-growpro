@@ -1,0 +1,115 @@
+{
+	"hero": {
+		"description": "Here you can rent bicycles. There are three types: electric, normal and old."
+	},
+	"bycicle_card": {
+		"number_base_days": "The first {{numberBaseDays}} days cost the base price"
+	},
+	"bycicle_form": {
+		"information_of_bycicle": "Information of bycicle",
+		"steps": {
+			"personal_information": "Personal information",
+			"billing_address": "Billing address",
+			"payment_details": "Payment details",
+			"review": "Review your order"
+		},
+		"fields": {
+			"first_name": {
+				"label": "First name",
+				"error": "You must enter your first name"
+			},
+			"last_name": {
+				"label": "Last name",
+				"error": "You must enter your last name"
+			},
+			"email": {
+				"error": "You must enter your email"
+			},
+			"phone": {
+				"label": "Phone number",
+				"error": "You must enter your phone number"
+			},
+			"address1": {
+				"label": "Address line 1",
+				"error": "You must enter your address"
+			},
+			"address2": {
+				"label": "Address line 2"
+			},
+			"city": {
+				"label": "City",
+				"error": "You must enter your city"
+			},
+			"state": {
+				"label": "State/Province/Region",
+				"error": ""
+			},
+			"zip": {
+				"label": "Zip/Postal code",
+				"error": "You must enter your zip code"
+			},
+			"country": {
+				"label": "Country",
+				"error": "You must enter your country"
+			},
+			"card_name": {
+				"label": "Name on card",
+				"error": "You must enter your name on card"
+			},
+			"card_number": {
+				"label": "Card number",
+				"error": "You must enter your card number"
+			},
+			"exp_date": {
+				"label": "Expiry date",
+				"error": "You must enter expiry date"
+			},
+			"cvv": {
+				"error": "You must enter your cvv code"
+			},
+			"start_date": {
+				"label": "Start date"
+			},
+			"end_date": {
+				"label": "End date"
+			},
+			"number_days": {
+				"label": "Number of days: {{numberDays}}"
+			}
+		},
+		"next": "Next",
+		"back": "Back",
+		"submit": {
+			"btn": "Make reservation",
+			"question": "Are you sure you want to make the reservation? Total price: {{price}}",
+			"confirm_btn": "Yes",
+			"deny_btn": "No",
+			"success_msg": "Congratulations! You have made the reservation successfully"
+		}
+	},
+	"bycicle": {
+		"name": "Bycicle",
+		"type": {
+			"old": "Old",
+			"normal": "Normal",
+			"electric": "Electric"
+		},
+		"name_with_type": {
+			"old": "Old bycicle",
+			"normal": "Normal bycicle",
+			"electric": "Electric bycicle"
+		}
+	},
+	"footer": {
+		"description": "A place for rent bycicles."
+	},
+	"pages": {
+		"bycicles_list": "Bycicles list"
+	},
+	"go_back": "Go back",
+	"type": "Type",
+	"name": "Name",
+	"number_days_one": "One day",
+	"number_days_other": "{{count}} days",
+	"shipping": "Shipping"
+}

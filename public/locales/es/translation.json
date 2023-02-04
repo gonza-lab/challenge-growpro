@@ -1,0 +1,115 @@
+{
+	"hero": {
+		"description": "Aquí se pueden alquilar bicicletas. Existen tres tipos: eléctricas, normales y antiguas."
+	},
+	"bycicle_card": {
+		"number_base_days": "Los primeros {{numberBaseDays}} días cuestan el precio base"
+	},
+	"bycicle_form": {
+		"information_of_bycicle": "Información de la bicicleta",
+		"steps": {
+			"personal_information": "Información personal",
+			"billing_address": "Dirección de facturación",
+			"payment_details": "Detalles de pago",
+			"review": "Revisión"
+		},
+		"fields": {
+			"first_name": {
+				"label": "Nombre",
+				"error": "Debes ingresar tu nombre"
+			},
+			"last_name": {
+				"label": "Apellido",
+				"error": "Debes ingresar tu apellido"
+			},
+			"email": {
+				"error": "Debes ingresar tu email"
+			},
+			"phone": {
+				"label": "Número de celular",
+				"error": "Debes ingresar tu número de celular"
+			},
+			"address1": {
+				"label": "Dirección 1",
+				"error": "Debes ingresar una dirección"
+			},
+			"address2": {
+				"label": "Dirección 2"
+			},
+			"city": {
+				"label": "Ciudad",
+				"error": "Debes ingresar una ciudad"
+			},
+			"state": {
+				"label": "Estado/Provincia/Región",
+				"error": ""
+			},
+			"zip": {
+				"label": "Zip/Código postal",
+				"error": "Debes ingresar un codigo zip/postal"
+			},
+			"country": {
+				"label": "País",
+				"error": "Debes ingresar un país"
+			},
+			"card_name": {
+				"label": "Titular de la tarjeta",
+				"error": "Debes ingresar el nombre que se encuentra en la tarjeta"
+			},
+			"card_number": {
+				"label": "Número de tarjeta",
+				"error": "Debes ingresar el número de la tarjeta"
+			},
+			"exp_date": {
+				"label": "Fecha de vencimiento",
+				"error": "Debes ingresar la fecha de vencimiento"
+			},
+			"cvv": {
+				"error": "Debes ingresar el código de seguridad"
+			},
+			"start_date": {
+				"label": "Fecha de inicio"
+			},
+			"end_date": {
+				"label": "Fecha de fin"
+			},
+			"number_days": {
+				"label": "Número de días: {{ numberDays }}"
+			}
+		},
+		"next": "Siguiente",
+		"back": "Volver",
+		"submit": {
+			"btn": "Realizar orden",
+			"question": "Estás seguro que quieres hacer la reserva? Precio total: {{price}}",
+			"confirm_btn": "Si",
+			"deny_btn": "No",
+			"success_msg": "Felicitaciones! Haz realizado la reserva con éxito"
+		}
+	},
+	"bycicle": {
+		"name": "Bicicleta",
+		"type": {
+			"old": "Antiguo",
+			"normal": "Normal",
+			"electric": "Eléctrico"
+		},
+		"name_with_type": {
+			"old": "Bicicleta antigua",
+			"normal": "Bicicleta normal",
+			"electric": "Bicicleta eléctrica"
+		}
+	},
+	"footer": {
+		"description": "Un lugar para alquilar bicicletas"
+	},
+	"pages": {
+		"bycicles_list": "Lista de bicicletas"
+	},
+	"go_back": "Volver",
+	"type": "Tipo",
+	"name": "Nombre",
+	"number_days_one": "Un día",
+	"number_days_other": "{{count}} días",
+	"shipping": "Envío"
+}

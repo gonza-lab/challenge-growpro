@@ -8,7 +8,7 @@ const findNearestStartDateFrom = (
 ): Date | null => {
   purchases = purchases.filter(
     (purchase) =>
-      purchase.bycicleId == bycicleId &&
+      purchase.bycicleId === bycicleId &&
       dayjs(purchase.startDate).isAfter(fromDate)
   );
 

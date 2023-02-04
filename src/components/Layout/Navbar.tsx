@@ -1,4 +1,6 @@
 import { MouseEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,12 +12,16 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
-import { Link } from 'react-router-dom';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-const pages = [{ title: 'Bycicles List', href: '/' }];
+import LANGUAGES from '../../constants/Languages';
+
+const pages = [{ name: 'bycicles_list', href: '/' }];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const { i18n, t } = useTranslation();
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -28,7 +34,7 @@ const Navbar = () => {
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Link to="/">
               <PedalBikeIcon sx={{ mr: 1 }} />
@@ -73,9 +79,11 @@ const Navbar = () => {
               }}
             >
               {pages.map((page) => (
-                <Link to={page.href}>
+                <Link to={page.href} key={page.href}>
                   <MenuItem key={page.href} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page.title}</Typography>
+                    <Typography textAlign="center">
+                      {t('pages.' + page.name)}
+                    </Typography>
                   </MenuItem>
                 </Link>
               ))}
@@ -85,9 +93,6 @@ const Navbar = () => {
           <Box
             sx={{
               display: { xs: 'flex', md: 'none' },
-              position: 'absolute',
-              left: '50%',
-              transform: 'translateX(-50%)',
             }}
           >
             <Link to="/">
@@ -114,10 +119,30 @@ const Navbar = () => {
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
-                  {page.title}
+                  {t('pages.' + page.name)}
                 </Button>
               </Link>
             ))}
+          </Box>
+
+          <Box>
+            <ToggleButtonGroup
+              value={i18n.resolvedLanguage}
+              exclusive
+              sx={{ background: 'white' }}
+              color="primary"
+              size="small"
+            >
+              {Object.keys(LANGUAGES).map((lang) => (
+                <ToggleButton
+                  value={lang}
+                  key={lang}
+                  onClick={() => i18n.changeLanguage(lang)}
+                >
+                  {lang}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
           </Box>
         </Toolbar>
       </Container>

@@ -1,12 +1,13 @@
 import { ChangeEvent, FC } from 'react';
 import { Grid, TextField } from '@mui/material';
 import CalendarForm from '../../Molecules/CalendarForm';
+import { useTranslation } from 'react-i18next';
 
 const errorMessages = {
-  firstName: 'You must enter your first name.',
-  lastName: 'You must enter your last name.',
-  email: 'You must enter a valid email.',
-  phone: 'You must enter your phone number.',
+  firstName: 'bycicle_form.fields.first_name.error',
+  lastName: 'bycicle_form.fields.last_name.error',
+  email: 'bycicle_form.fields.email.error',
+  phone: 'bycicle_form.fields.phone.error',
 };
 
 interface PersonalInformationFormProps {
@@ -24,6 +25,7 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
   errors,
   setValue,
 }) => {
+  const { t } = useTranslation();
   return (
     <>
       <Grid container spacing={3}>
@@ -32,13 +34,13 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             required
             id="firstName"
             name="firstName"
-            label="First name"
+            label={t('bycicle_form.fields.first_name.label')}
             fullWidth
             autoComplete="given-name"
             variant="standard"
             onChange={onChangeInput}
             error={errors?.firstName}
-            helperText={errors?.firstName && errorMessages.firstName}
+            helperText={errors?.firstName && t(errorMessages.firstName)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -46,13 +48,13 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             required
             id="lastName"
             name="lastName"
-            label="Last name"
+            label={t('bycicle_form.fields.last_name.label')}
             fullWidth
             autoComplete="family-name"
             variant="standard"
             onChange={onChangeInput}
             error={errors?.lastName}
-            helperText={errors?.lastName && errorMessages.lastName}
+            helperText={errors?.lastName && t(errorMessages.lastName)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -66,7 +68,7 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             variant="standard"
             onChange={onChangeInput}
             error={errors?.email}
-            helperText={errors?.email && errorMessages.email}
+            helperText={errors?.email && t(errorMessages.email)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -75,13 +77,13 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             type="number"
             id="phone"
             name="phone"
-            label="Phone Number"
+            label={t('bycicle_form.fields.phone.label')}
             fullWidth
             autoComplete="tel"
             variant="standard"
             onChange={onChangeInput}
             error={errors?.phone}
-            helperText={errors?.phone && errorMessages.phone}
+            helperText={errors?.phone && t(errorMessages.phone)}
           />
         </Grid>
         <CalendarForm setValue={setValue} />

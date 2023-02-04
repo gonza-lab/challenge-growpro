@@ -1,7 +1,9 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Link as MuiLink } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
       <Typography variant="h6" align="center" gutterBottom>
@@ -13,15 +15,17 @@ const Footer = () => {
         color="text.secondary"
         component="p"
       >
-        A place for rent bycicles.
+        {t('footer.description')}
       </Typography>
       <Typography variant="body2" color="text.secondary" align="center">
         {'Copyright © '}
-        <Box sx={{ display: 'inline-block' }}>
-          <Link to="https://challenge-growpro.vercel.app/">
-            <b>BS: Bycicle Store</b>
-          </Link>
-        </Box>{' '}
+        <MuiLink
+          component={Link}
+          sx={{ display: 'inline-block' }}
+          to="https://challenge-growpro.vercel.app/"
+        >
+          <b>BS: Bycicle Store</b>
+        </MuiLink>{' '}
         {new Date().getFullYear()}
         {'.'}
       </Typography>

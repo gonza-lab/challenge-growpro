@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { EntityId } from '@reduxjs/toolkit';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -16,6 +18,7 @@ import { RootState } from '../../state/store';
 import BycicleFormComponent from '../../components/Organisms/BycicleForm';
 
 const BycicleForm = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -23,17 +26,19 @@ const BycicleForm = () => {
   const bycicle = useSelector<RootState, Bycicle | undefined>((state) =>
     selectBycicleById(state, id as EntityId)
   );
-  if (!bycicle) navigate('/');
+
+  useEffect(() => {
+    if (!bycicle) navigate('/');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container component="main" maxWidth="xl" sx={{ my: 4 }}>
       <Box sx={{ mb: 4, display: 'flex' }}>
-        <Link to="/">
-          <MuiLink href="/">
-            <ArrowBackIcon sx={{ mr: 1 }} />
-            <Typography>Go back</Typography>
-          </MuiLink>
-        </Link>
+        <MuiLink component={Link} to="/">
+          <ArrowBackIcon sx={{ mr: 1 }} />
+          <Typography>{t('go_back')}</Typography>
+        </MuiLink>
       </Box>
       <Grid container spacing={2}>
         <Grid item md={5} xs={12} sx={{ height: { xs: '250px', md: 'auto' } }}>

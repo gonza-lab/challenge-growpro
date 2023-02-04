@@ -1,8 +1,10 @@
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -26,8 +28,7 @@ const Hero = () => {
           color="text.secondary"
           paragraph
         >
-          Here you can rent bicycles. There are three types: electric, normal
-          and old.
+          {t('hero.description')}
         </Typography>
       </Container>
     </Box>

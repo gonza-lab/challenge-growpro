@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Step, StepLabel, Stepper, useMediaQuery } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface StepperFormProps {
   steps: string[];
@@ -8,6 +9,7 @@ interface StepperFormProps {
 
 const StepperForm: FC<StepperFormProps> = ({ steps, activeStep }) => {
   const isDesktop = useMediaQuery('(min-width:600px)');
+  const { t } = useTranslation();
 
   return (
     <Stepper
@@ -17,7 +19,7 @@ const StepperForm: FC<StepperFormProps> = ({ steps, activeStep }) => {
     >
       {steps.map((label) => (
         <Step key={label}>
-          <StepLabel>{label}</StepLabel>
+          <StepLabel>{t(label)}</StepLabel>
         </Step>
       ))}
     </Stepper>
