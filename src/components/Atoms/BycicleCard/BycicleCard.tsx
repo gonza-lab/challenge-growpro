@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { selectBycicleById } from '../../../state/bycicles/slice';
 import { RootState } from '../../../state/store';
 import { EntityId } from '@reduxjs/toolkit';
+import NUMBER_BASE_DAYS from '../../../constants/A';
 
 interface BycicleCardProps {
   id: EntityId;
@@ -37,7 +38,7 @@ const BycicleCard: FC<BycicleCardProps> = ({ id }) => {
     <Card>
       <CardActionArea onClick={() => navigate('/bycicle/' + id)}>
         <CardMedia
-          sx={{ height: '200px' }}
+          sx={{ height: '250px' }}
           component="img"
           image={image}
           alt="random"
@@ -59,6 +60,11 @@ const BycicleCard: FC<BycicleCardProps> = ({ id }) => {
               color={chip[type].color}
               size="small"
             />
+          </Typography>
+          <Typography color="text.secondary">
+            {NUMBER_BASE_DAYS[type]
+              ? `The first ${NUMBER_BASE_DAYS[type]} days cost the base price`
+              : '‎'}
           </Typography>
         </CardContent>
       </CardActionArea>

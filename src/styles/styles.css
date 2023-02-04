@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -18,4 +22,10 @@ a {
 
 .swal2-popup {
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+.MuiCalendarOrClockPicker-root
+  .MuiPickersToolbar-content
+  .MuiPickersToolbar-penIconButton {
+  display: none;
 }

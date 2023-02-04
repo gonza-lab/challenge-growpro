@@ -1,9 +1,6 @@
-import { ChangeEvent, FC, useState, useEffect } from 'react';
+import { ChangeEvent, FC } from 'react';
 import { Grid, TextField } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-import dayjs, { Dayjs } from 'dayjs';
+import CalendarForm from '../../Molecules/CalendarForm';
 
 const errorMessages = {
   firstName: 'You must enter your first name.',
@@ -27,20 +24,6 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
   errors,
   setValue,
 }) => {
-  const [startDate, setStartDate] = useState<Dayjs | null>(
-    dayjs().startOf('D')
-  );
-  const [endDate, setEndDate] = useState<Dayjs | null>(dayjs().add(2, 'days'));
-  const [numberDays, setNumberDays] = useState(1);
-
-  useEffect(() => {
-    const difference = dayjs(endDate).diff(dayjs(startDate), 'day', false) + 1;
-    setNumberDays(difference);
-    setValue('startDate', startDate);
-    setValue('numberDays', difference);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate, endDate]);
-
   return (
     <>
       <Grid container spacing={3}>
@@ -101,40 +84,7 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             helperText={errors?.phone && errorMessages.phone}
           />
         </Grid>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Grid item xs={12} sm={6}>
-            <MobileDatePicker
-              label="Start date"
-              inputFormat="MM/DD/YYYY"
-              value={startDate}
-              onChange={(newDate) => {
-                setStartDate(newDate);
-                if (dayjs(newDate).isAfter(endDate)) {
-                  setEndDate(newDate);
-                }
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  fullWidth
-                  helperText={'Number of days: ' + numberDays}
-                />
-              )}
-              disablePast
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <MobileDatePicker
-              label="End date"
-              inputFormat="MM/DD/YYYY"
-              value={endDate}
-              minDate={startDate || dayjs()}
-              onChange={setEndDate}
-              renderInput={(params) => <TextField {...params} fullWidth />}
-              disablePast
-            />
-          </Grid>
-        </LocalizationProvider>
+        <CalendarForm setValue={setValue} />
       </Grid>
     </>
   );

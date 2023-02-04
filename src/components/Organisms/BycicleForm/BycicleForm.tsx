@@ -4,15 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 import Bycicle from '../../../interfaces/Bycicle';
 import useForm from '../../../hooks/useForm';
-import BYCICLES from '../../../utils/Bycicle';
+import BYCICLES from '../../../constants/Bycicle';
 import getByciclePrice from '../../../utils/getByciclePrice';
-import savePurchaseInLocalStorage from '../../../utils/savePurchaseInLocalStorage';
+import PurchaseLocalStorage from '../../../utils/PurchaseLocalStorage';
 import toMoneyFormat from '../../../utils/toMoneyFormat';
 
 import BillingAddressForm from '../../Atoms/BillingAddressForm';
 import OrderSummary from '../../Atoms/OrderSummary';
 import PaymentForm from '../../Atoms/PaymentForm';
-import PersonalInformationForm from '../../Atoms/PersonalInformationForm';
+import PersonalInformationForm from '../PersonalInformationForm';
 import StepperForm from '../../Atoms/StepperForm';
 import showModal from '../../../utils/showModal';
 
@@ -60,24 +60,12 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
   });
   const navigate = useNavigate();
 
-  const validateForm = () => {
+  const handleNext = () => {
     let isValid = validateFields(groupsOfForm[activeStep] || []);
     if (!isValid) return;
-  };
-
-  const handleNext = () => {
-    validateForm();
 
     if (activeStep === steps.length - 1) {
-      showModal({
-        title:
-          'Are you sure you want to make the purchase? Total price: ' +
-          toMoneyFormat(price.total),
-        callback: () => {
-          savePurchaseInLocalStorage(form);
-          navigate('/');
-        },
-      });
+      handleSubmit();
       return;
     } else if (activeStep === steps.length - 2) {
       setPrice(
@@ -96,13 +84,33 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
     setActiveStep(activeStep - 1);
   };
 
+  const handleSubmit = () => {
+    showModal({
+      title:
+        'Are you sure you want to make the purchase? Total price: ' +
+        toMoneyFormat(price.total),
+      callback: () => {
+        PurchaseLocalStorage.add({ ...form, bycicleId: bycicle.id } as any);
+        navigate('/');
+      },
+    });
+  };
+
   return (
-    <Paper variant="outlined" sx={{ p: { xs: 2, md: 3 } }}>
+    <Paper
+      variant="outlined"
+      sx={{
+        p: { xs: 2, md: 3 },
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Typography component="h1" variant="h4" align="center">
         Checkout
       </Typography>
       <StepperForm steps={steps} activeStep={activeStep} />
-      <form>
+      <form style={{ height: '100%' }}>
         <Box sx={{ display: activeStep === 0 ? 'block' : 'none' }}>
           <Typography variant="h6" gutterBottom>
             Information of Bycicle

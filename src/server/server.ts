@@ -1,52 +1,76 @@
-import { createServer, Factory, Model } from 'miragejs';
-import { ModelDefinition } from 'miragejs/-types';
-import Bycicle from '../interfaces/Bycicle';
+import { createServer } from 'miragejs';
+import getRandomInt from '../utils/getRandomInt';
+import swap from '../utils/swap';
 
-const BycicleModel: ModelDefinition<Bycicle> = Model.extend({});
+let mock = [
+  {
+    image: '/images/e1.jpg',
+    type: 0,
+    name: 'Gladiator Pro',
+    id: 1,
+  },
+  {
+    image: '/images/o0.jpg',
+    type: 2,
+    name: 'Ginny Classic',
+    id: 3,
+  },
+  {
+    image: '/images/n0.jpg',
+    type: 1,
+    name: 'Sport Rudy',
+    id: 2,
+  },
+  {
+    image: '/images/e0.jpg',
+    type: 0,
+    name: 'E-Prodigy 7',
+    id: 4,
+  },
+  {
+    image: '/images/n2.jpg',
+    type: 1,
+    name: 'Silver Fox R29',
+    id: 5,
+  },
+  {
+    image: '/images/o1.jpg',
+    type: 2,
+    name: 'New Voncile 21',
+    id: 6,
+  },
+  {
+    image: '/images/e2.jpg',
+    type: 0,
+    name: 'Transformer',
+    id: 7,
+  },
+  {
+    image: '/images/o2.jpg',
+    type: 2,
+    name: 'Cherylin Classic',
+    id: 9,
+  },
+  {
+    image: '/images/n1.jpg',
+    type: 1,
+    name: 'Roman',
+    id: 8,
+  },
+];
 
-const images: { [name: string]: string } = {
-  electric: 'e',
-  normal: 'n',
-  old: 'o',
-};
-
-const names: { [name: string]: string[] } = {
-  electric: ['Gladiator', 'Prodigy', 'Transformer'],
-  normal: ['Rudy ', 'Neal', 'Roman'],
-  old: ['Voncile', 'Ginny', 'Cherilyn'],
-};
-const bycicleTypes = ['electric', 'normal', 'old'];
-
-const getRandomInt = (max: number) => {
-  return Math.floor(Math.random() * max);
-};
+mock = swap(getRandomInt(8), getRandomInt(8), mock);
+mock = swap(getRandomInt(8), getRandomInt(8), mock);
 
 const initServer = function () {
   let server = createServer({
-    models: {
-      bycicle: BycicleModel,
-    },
-
-    factories: {
-      bycicle: Factory.extend({
-        name: (i) => names[bycicleTypes[i % 3]][getRandomInt(2)],
-        type: (i) => i % 3,
-        image: (i) =>
-          '/images/' + images[bycicleTypes[i % 3]] + getRandomInt(2) + '.jpg',
-      }),
-    },
-
-    seeds(server) {
-      server.createList('bycicle', 9);
-    },
-
     routes() {
       this.get(
         '/api/bycicles',
-        (schema) => {
-          return schema.all('bycicle').models;
-        },
-        { timing: 1500 }
+        () => {
+          return mock;
+        }
+        // { timing: 1500 }
       );
     },
   });

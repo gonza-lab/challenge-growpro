@@ -26,7 +26,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="relative">
+    <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

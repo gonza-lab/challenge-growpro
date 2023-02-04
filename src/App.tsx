@@ -10,8 +10,10 @@ import { AppDispatch, RootState } from './state/store';
 import { BycicleState, BycicleStatus } from './state/bycicles/slice';
 
 import Layout from './components/Layout/Layout';
+import useScrollToTop from './hooks/useScrollToTop';
 
 const App = () => {
+  useScrollToTop();
   const dispatch = useDispatch<AppDispatch>();
   const { status } = useSelector<RootState, BycicleState>(
     (state) => state.bycicles

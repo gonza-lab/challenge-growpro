@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Grid, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 import Bycicle from '../../../interfaces/Bycicle';
-import BYCICLES from '../../../utils/Bycicle';
+import BYCICLES from '../../../constants/Bycicle';
 import toMoneyFormat from '../../../utils/toMoneyFormat';
 
 interface OrderSummaryProps {
@@ -44,7 +44,12 @@ const OrderSummary: FC<OrderSummaryProps> = ({
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText
             primary={bycicle.name}
-            secondary={BYCICLES[bycicle.type] + ' Bycicle'}
+            secondary={
+              BYCICLES[bycicle.type] +
+              ' Bycicle. ' +
+              values.numberDays +
+              (values.numberDays > 1 ? ' days' : ' day')
+            }
             secondaryTypographyProps={{
               textTransform: 'capitalize',
             }}
