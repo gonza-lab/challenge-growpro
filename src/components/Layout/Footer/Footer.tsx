@@ -18,7 +18,7 @@ const Footer = () => {
       <Typography variant="body2" color="text.secondary" align="center">
         {'Copyright © '}
         <Box sx={{ display: 'inline-block' }}>
-          <Link to="https://mui.com/">
+          <Link to="https://challenge-growpro.vercel.app/">
             <b>BS: Bycicle Store</b>
           </Link>
         </Box>{' '}

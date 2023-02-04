@@ -1,6 +1,17 @@
-# Getting Started with Create React App
+# Challenge GrowPro
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Getting Started
+
+### Prerequisites
+
+1. `npm install`
+
+### Usage 
+1. `npm start`
+
+## Decisions
+
+Explanation of decisions made [here](https://gonzaloflores.notion.site/GrowProp-Challenge-Decisiones-17f4d69337d644fcb4c36a08a8f0c67b)
 
 ## Available Scripts
 
