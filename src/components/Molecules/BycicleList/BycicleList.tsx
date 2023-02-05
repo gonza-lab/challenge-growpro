@@ -9,6 +9,7 @@ import {
 } from '../../../state/bycicles/slice';
 import { RootState } from '../../../state/store';
 import BycicleCard from '../../Atoms/BycicleCard';
+import Spinner from '../../Atoms/Spinner';
 
 const BycicleList = () => {
   const { status } = useSelector<RootState, BycicleState>(
@@ -17,19 +18,11 @@ const BycicleList = () => {
   const ids = useSelector(selectByciclesIds);
 
   return (
-    <Container sx={{ py: { xs: 2, md: 8 } }} maxWidth="xl">
+    <Container maxWidth="xl">
       <Grid container spacing={4}>
         {status === BycicleStatus.loadingBycicles ? (
-          <Grid
-            item
-            xs={12}
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <CircularProgress />
+          <Grid item xs={12}>
+            <Spinner />
           </Grid>
         ) : (
           ids.map((id) => (

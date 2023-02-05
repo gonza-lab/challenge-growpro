@@ -125,15 +125,6 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
       <StepperForm steps={steps} activeStep={activeStep} />
       <form style={{ height: '100%' }}>
         <Box sx={{ display: activeStep === 0 ? 'block' : 'none' }}>
-          <Typography variant="h6" gutterBottom>
-            {t('bycicle_form.information_of_bycicle')}
-          </Typography>
-          <Typography>
-            <b>{t('type')}</b>: {t('bycicle.type.' + BYCICLES[bycicle.type])}
-          </Typography>
-          <Typography>
-            <b>{t('name')}</b>: {bycicle.name}
-          </Typography>
           <Typography variant="h6" gutterBottom mt={2}>
             {t('bycicle_form.steps.personal_information')}
           </Typography>

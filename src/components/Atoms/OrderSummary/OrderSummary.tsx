@@ -24,6 +24,7 @@ interface OrderSummaryProps {
     cvv: string;
     numberDays: number;
     startDate: Date;
+    endDate: Date;
   };
   bycicle: Bycicle;
   total: number;
@@ -76,7 +77,7 @@ const OrderSummary: FC<OrderSummaryProps> = ({
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            {t('shipping')}
+            {t('bycicle_form.steps.billing_address')}
           </Typography>
           <Typography gutterBottom>
             {values.firstName} {values.lastName}

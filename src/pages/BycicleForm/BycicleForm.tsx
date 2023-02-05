@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Chip } from '@mui/material';
 import { EntityId } from '@reduxjs/toolkit';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -16,6 +17,8 @@ import { selectBycicleById } from '../../state/bycicles/slice';
 import { RootState } from '../../state/store';
 
 import BycicleFormComponent from '../../components/Organisms/BycicleForm';
+import CHIP_BY_TYPE from '../../constants/Chip';
+import BYCICLES from '../../constants/Bycicle';
 
 const BycicleForm = () => {
   const { t } = useTranslation();
@@ -33,16 +36,46 @@ const BycicleForm = () => {
   }, []);
 
   return (
-    <Container component="main" maxWidth="xl" sx={{ my: 4 }}>
-      <Box sx={{ mb: 4, display: 'flex' }}>
+    <Container component="main" maxWidth="xl" sx={{ my: { xs: 2, md: 4 } }}>
+      <Box sx={{ mb: { xs: 2, md: 4 }, display: 'flex' }}>
         <MuiLink component={Link} to="/">
           <ArrowBackIcon sx={{ mr: 1 }} />
           <Typography>{t('go_back')}</Typography>
         </MuiLink>
       </Box>
-      <Grid container spacing={2}>
-        <Grid item md={5} xs={12} sx={{ height: { xs: '250px', md: 'auto' } }}>
-          <Paper sx={{ height: '100%', borderRadius: 4 }} elevation={3}>
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          height: { xs: 'auto', md: 668 },
+        }}
+      >
+        <Grid
+          item
+          md={5}
+          xs={12}
+          sx={{
+            height: { xs: '250px', md: '100%' },
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          <Box display="flex" alignItems="center">
+            <Typography variant="h3" fontWeight="300">
+              {bycicle?.name} |
+            </Typography>
+            <Chip
+              sx={{ ml: 2 }}
+              size="medium"
+              label={t('bycicle.type.' + BYCICLES[bycicle?.type || 0])}
+              color={CHIP_BY_TYPE[bycicle?.type || 0].color}
+            />
+          </Box>
+          <Paper
+            sx={{ height: '100%', borderRadius: 4, position: 'relative' }}
+            elevation={3}
+          >
             <img
               src={bycicle?.image}
               alt="bycicle"
@@ -51,6 +84,7 @@ const BycicleForm = () => {
                 height: '100%',
                 objectFit: 'cover',
                 borderRadius: '16px',
+                position: 'absolute',
               }}
             />
           </Paper>

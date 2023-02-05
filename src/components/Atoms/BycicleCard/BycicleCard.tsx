@@ -16,16 +16,11 @@ import { EntityId } from '@reduxjs/toolkit';
 import NUMBER_BASE_DAYS from '../../../constants/NumberBaseDays';
 import { useTranslation } from 'react-i18next';
 import BYCICLES from '../../../constants/Bycicle';
+import CHIP_BY_TYPE from '../../../constants/Chip';
 
 interface BycicleCardProps {
   id: EntityId;
 }
-
-const chip: { label: string; color: 'info' | 'success' | 'warning' }[] = [
-  { label: 'Electric', color: 'success' },
-  { label: 'Normal', color: 'info' },
-  { label: 'Old', color: 'warning' },
-];
 
 const BycicleCard: FC<BycicleCardProps> = ({ id }) => {
   const { t } = useTranslation();
@@ -60,7 +55,7 @@ const BycicleCard: FC<BycicleCardProps> = ({ id }) => {
             <Chip
               sx={{ ml: 1 }}
               label={t('bycicle.type.' + BYCICLES[type])}
-              color={chip[type].color}
+              color={CHIP_BY_TYPE[type].color}
               size="small"
             />
           </Typography>
