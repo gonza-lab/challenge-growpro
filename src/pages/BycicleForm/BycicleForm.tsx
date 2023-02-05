@@ -39,7 +39,7 @@ const BycicleForm = () => {
         container
         spacing={2}
         sx={{
-          height: { xs: 'auto', lg: 668 },
+          height: { xs: 'auto', lg: 706 },
         }}
       >
         <Grid

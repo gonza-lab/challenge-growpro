@@ -1,14 +1,16 @@
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import Purchase from '../interfaces/Purchase';
 
 dayjs.extend(isBetween);
+dayjs.extend(isSameOrAfter);
 
 const searchNearVacantDate = (bycicleId: number, purchases: Purchase[]) => {
   purchases = purchases.filter(
     (purchase) =>
       purchase.bycicleId === bycicleId &&
-      dayjs(purchase.endDate).isAfter(dayjs().startOf('D'))
+      dayjs(purchase.endDate).isSameOrAfter(dayjs(), 'day')
   );
   if (!purchases.length) return dayjs();
 
