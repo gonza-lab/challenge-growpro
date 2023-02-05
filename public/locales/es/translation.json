@@ -23,7 +23,7 @@
 				"error": "Debes ingresar tu apellido"
 			},
 			"email": {
-				"error": "Debes ingresar tu email"
+				"error": "Debes ingresar un email válido"
 			},
 			"phone": {
 				"label": "Número de celular",
@@ -58,14 +58,14 @@
 			},
 			"card_number": {
 				"label": "Número de tarjeta",
-				"error": "Debes ingresar el número de la tarjeta"
+				"error": "Debes ingresar un número tarjeta válido"
 			},
 			"exp_date": {
 				"label": "Fecha de vencimiento",
-				"error": "Debes ingresar la fecha de vencimiento"
+				"error": "Debes ingresar una fecha de vencimiento válida"
 			},
 			"cvv": {
-				"error": "Debes ingresar el código de seguridad"
+				"error": "Debes ingresar un código de seguridad válido"
 			},
 			"start_date": {
 				"label": "Fecha de inicio"

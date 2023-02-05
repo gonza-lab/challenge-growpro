@@ -23,7 +23,7 @@
 				"error": "You must enter your last name"
 			},
 			"email": {
-				"error": "You must enter your email"
+				"error": "You must enter a valid email"
 			},
 			"phone": {
 				"label": "Phone number",
@@ -58,14 +58,14 @@
 			},
 			"card_number": {
 				"label": "Card number",
-				"error": "You must enter your card number"
+				"error": "You must enter a valid card number"
 			},
 			"exp_date": {
 				"label": "Expiry date",
-				"error": "You must enter expiry date"
+				"error": "You must a valid expiry date"
 			},
 			"cvv": {
-				"error": "You must enter your cvv code"
+				"error": "You must enter a valid cvv code"
 			},
 			"start_date": {
 				"label": "Start date"
