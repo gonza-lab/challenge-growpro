@@ -17,17 +17,12 @@ interface PaymentFormProps {
     expDate?: boolean;
     cvv?: boolean;
   };
+  values: { [name: string]: string | number };
 }
 
 const handleExpDateChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
   if (target.value.length === 2) {
     target.value += '-';
-  }
-};
-
-const handleMaxChange = (e: ChangeEvent<HTMLInputElement>) => {
-  if (e.target.value.length > e.target.maxLength) {
-    e.target.value = e.target.value.slice(0, e.target.maxLength);
   }
 };
 
@@ -41,7 +36,11 @@ const handleDelete = ({ key, target }: KeyboardEvent<HTMLInputElement>) => {
   }
 };
 
-const PaymentForm: FC<PaymentFormProps> = ({ onChangeInput, errors }) => {
+const PaymentForm: FC<PaymentFormProps> = ({
+  onChangeInput,
+  errors,
+  values,
+}) => {
   const { t } = useTranslation();
   return (
     <>
@@ -59,6 +58,7 @@ const PaymentForm: FC<PaymentFormProps> = ({ onChangeInput, errors }) => {
             autoComplete="cc-name"
             variant="standard"
             onChange={onChangeInput}
+            value={values?.cardName || ''}
             error={errors.cardName}
             helperText={errors.cardName && t(errorMessages.cardName)}
           />
@@ -73,11 +73,9 @@ const PaymentForm: FC<PaymentFormProps> = ({ onChangeInput, errors }) => {
             autoComplete="cc-number"
             variant="standard"
             type="number"
-            inputProps={{ maxLength: 16 }}
-            onChange={(e) => {
-              handleMaxChange(e as ChangeEvent<HTMLInputElement>);
-              onChangeInput(e as ChangeEvent<HTMLInputElement>);
-            }}
+            inputProps={{ minLength: 16, maxLength: 16 }}
+            onChange={onChangeInput}
+            value={values?.cardNumber || ''}
             error={errors.cardNumber}
             helperText={errors.cardNumber && t(errorMessages.cardNumber)}
           />
@@ -91,12 +89,13 @@ const PaymentForm: FC<PaymentFormProps> = ({ onChangeInput, errors }) => {
             fullWidth
             autoComplete="cc-exp"
             variant="standard"
-            inputProps={{ maxLength: 5 }}
+            inputProps={{ maxLength: 5, minLength: 5 }}
             onChange={(e) => {
               handleExpDateChange(e as ChangeEvent<HTMLInputElement>);
               onChangeInput(e as ChangeEvent<HTMLInputElement>);
             }}
             onKeyDown={handleDelete}
+            value={values?.expDate || ''}
             error={errors.expDate}
             helperText={errors.expDate && t(errorMessages.expDate)}
           />
@@ -111,13 +110,11 @@ const PaymentForm: FC<PaymentFormProps> = ({ onChangeInput, errors }) => {
             fullWidth
             autoComplete="cc-csc"
             variant="standard"
-            onChange={(e) => {
-              handleMaxChange(e as ChangeEvent<HTMLInputElement>);
-              onChangeInput(e as ChangeEvent<HTMLInputElement>);
-            }}
+            onChange={onChangeInput}
+            value={values?.cvv || ''}
             error={errors.cvv}
             helperText={errors.cvv && t(errorMessages.cvv)}
-            inputProps={{ maxLength: 3 }}
+            inputProps={{ maxLength: 3, minLength: 3 }}
           />
         </Grid>
       </Grid>

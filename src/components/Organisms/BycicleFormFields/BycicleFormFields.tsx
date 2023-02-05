@@ -30,7 +30,7 @@ const BycicleFormFields: FC<BycicleFormFieldsProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <form style={{ height: '100%' }}>
+    <form style={{ height: '100%' }} id="bycicle-form">
       <Box sx={{ display: activeStep === 0 ? 'block' : 'none' }}>
         <Typography variant="h6" gutterBottom mt={2}>
           {t('bycicle_form.steps.personal_information')}
@@ -39,13 +39,18 @@ const BycicleFormFields: FC<BycicleFormFieldsProps> = ({
           onChangeInput={onChange}
           errors={errors}
           setValue={setValue}
+          values={form}
         />
       </Box>
       <Box sx={{ display: activeStep === 1 ? 'block' : 'none' }}>
-        <BillingAddressForm onChangeInput={onChange} errors={errors} />
+        <BillingAddressForm
+          onChangeInput={onChange}
+          errors={errors}
+          values={form}
+        />
       </Box>
       <Box sx={{ display: activeStep === 2 ? 'block' : 'none' }}>
-        <PaymentForm onChangeInput={onChange} errors={errors} />
+        <PaymentForm onChangeInput={onChange} errors={errors} values={form} />
       </Box>
       <Box sx={{ display: activeStep === stepsLength - 1 ? 'block' : 'none' }}>
         <OrderSummary values={form} bycicle={bycicle} {...price} />

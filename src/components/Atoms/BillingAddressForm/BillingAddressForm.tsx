@@ -17,11 +17,13 @@ interface BillingAddressFormProps {
     zip?: boolean;
     country?: boolean;
   };
+  values: { [name: string]: string | number };
 }
 
 const BillingAddressForm: FC<BillingAddressFormProps> = ({
   onChangeInput,
   errors,
+  values,
 }) => {
   const { t } = useTranslation();
   return (
@@ -40,6 +42,7 @@ const BillingAddressForm: FC<BillingAddressFormProps> = ({
             autoComplete="shipping address-line1"
             variant="standard"
             onChange={onChangeInput}
+            value={values.address1 || ''}
             error={errors?.address1}
             helperText={errors?.address1 && t(errorMessages.address1)}
           />
@@ -53,6 +56,7 @@ const BillingAddressForm: FC<BillingAddressFormProps> = ({
             autoComplete="shipping address-line2"
             variant="standard"
             onChange={onChangeInput}
+            value={values.address2 || ''}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -65,6 +69,7 @@ const BillingAddressForm: FC<BillingAddressFormProps> = ({
             autoComplete="shipping address-level2"
             variant="standard"
             onChange={onChangeInput}
+            value={values.city || ''}
             error={errors?.city}
             helperText={errors?.city && t(errorMessages.city)}
           />
@@ -77,6 +82,7 @@ const BillingAddressForm: FC<BillingAddressFormProps> = ({
             fullWidth
             variant="standard"
             onChange={onChangeInput}
+            value={values.state || ''}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -89,18 +95,21 @@ const BillingAddressForm: FC<BillingAddressFormProps> = ({
             variant="standard"
             type="number"
             onChange={onChangeInput}
+            value={values.zip || ''}
             error={errors?.zip}
             helperText={errors?.zip && t(errorMessages.zip)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+            required
             id="country"
             name="country"
             label={t('bycicle_form.fields.country.label')}
             fullWidth
             autoComplete="shipping country"
             variant="standard"
+            value={values.country || ''}
             onChange={onChangeInput}
             error={errors?.country}
             helperText={errors?.country && t(errorMessages.country)}

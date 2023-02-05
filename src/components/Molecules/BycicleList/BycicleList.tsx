@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { Container, Grid } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
 
 import {
   BycicleState,

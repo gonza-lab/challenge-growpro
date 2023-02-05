@@ -34,23 +34,7 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
   const { t } = useTranslation();
   const [activeStep, setActiveStep] = useState(0);
   const { handleChange, form, errors, setValue, validateFields } = useForm({
-    fields: {
-      firstName: { required: true },
-      lastName: { required: true },
-      email: {
-        required: true,
-        pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-      },
-      phone: { required: true },
-      address1: { required: true },
-      city: { required: true },
-      zip: { required: true },
-      country: { required: true },
-      cardName: { required: true },
-      cardNumber: { required: true, min: 16 },
-      expDate: { required: true, min: 5 },
-      cvv: { required: true, min: 3 },
-    },
+    formId: 'bycicle-form',
   });
   const [price, setPrice] = useState<{ total: number; bill: string }>({
     total: 0,
@@ -98,7 +82,6 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(t('bycicle_form.submit.success_msg') || '', '', 'success');
-
         PurchaseLocalStorage.add({ ...form, bycicleId: bycicle.id } as any);
         navigate('/');
       }

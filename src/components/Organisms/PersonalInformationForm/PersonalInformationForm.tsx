@@ -19,11 +19,13 @@ interface PersonalInformationFormProps {
     phone?: boolean;
   };
   setValue: any;
+  values: { [name: string]: string | number };
 }
 const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
   onChangeInput,
   errors,
   setValue,
+  values,
 }) => {
   const { t } = useTranslation();
   return (
@@ -39,6 +41,7 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             autoComplete="given-name"
             variant="standard"
             onChange={onChangeInput}
+            value={values.firstName || ''}
             error={errors?.firstName}
             helperText={errors?.firstName && t(errorMessages.firstName)}
           />
@@ -53,6 +56,7 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             autoComplete="family-name"
             variant="standard"
             onChange={onChangeInput}
+            value={values.lastName || ''}
             error={errors?.lastName}
             helperText={errors?.lastName && t(errorMessages.lastName)}
           />
@@ -60,6 +64,7 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
 
         <Grid item xs={12} sm={6}>
           <TextField
+            type="email"
             required
             id="email"
             name="email"
@@ -68,6 +73,7 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             autoComplete="email"
             variant="standard"
             onChange={onChangeInput}
+            value={values.email || ''}
             error={errors?.email}
             helperText={errors?.email && t(errorMessages.email)}
           />
@@ -83,6 +89,7 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             autoComplete="tel"
             variant="standard"
             onChange={onChangeInput}
+            value={values.phone || ''}
             error={errors?.phone}
             helperText={errors?.phone && t(errorMessages.phone)}
           />
