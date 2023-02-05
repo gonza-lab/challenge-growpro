@@ -85,7 +85,8 @@
 			"confirm_btn": "Yes",
 			"deny_btn": "No",
 			"success_msg": "Congratulations! You have made the reservation successfully"
-		}
+		},
+		"calendar_msg": "Rental duration"
 	},
 	"bycicle": {
 		"name": "Bycicle",

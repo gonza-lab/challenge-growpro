@@ -85,7 +85,8 @@
 			"confirm_btn": "Si",
 			"deny_btn": "No",
 			"success_msg": "Felicitaciones! Haz realizado la reserva con éxito"
-		}
+		},
+		"calendar_msg": "Duración de alquiler"
 	},
 	"bycicle": {
 		"name": "Bicicleta",

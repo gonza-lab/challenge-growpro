@@ -1,5 +1,5 @@
 import { ChangeEvent, FC } from 'react';
-import { Grid, TextField } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import CalendarForm from '../../Molecules/CalendarForm';
 import { useTranslation } from 'react-i18next';
 
@@ -57,6 +57,7 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             helperText={errors?.lastName && t(errorMessages.lastName)}
           />
         </Grid>
+
         <Grid item xs={12} sm={6}>
           <TextField
             required
@@ -85,6 +86,11 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             error={errors?.phone}
             helperText={errors?.phone && t(errorMessages.phone)}
           />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h6" gutterBottom>
+            {t('bycicle_form.calendar_msg')}
+          </Typography>
         </Grid>
         <CalendarForm setValue={setValue} />
       </Grid>

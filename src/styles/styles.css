@@ -20,7 +20,8 @@ a {
   color: inherit;
 }
 
-.swal2-popup {
+.swal2-popup,
+.swal2-popup .swal2-title {
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 

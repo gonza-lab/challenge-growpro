@@ -31,17 +31,16 @@ const shouldDisableDate = (
   bycicleId: number,
   purchases: Purchase[]
 ): boolean => {
-  return !!purchases.find((purchase) => {
-    return (
+  return !!purchases.find(
+    (purchase) =>
       bycicleId === purchase.bycicleId &&
       dayjs(day).isBetween(
-        dayjs(purchase.startDate),
-        dayjs(purchase.endDate),
+        dayjs(purchase.startDate).startOf('D'),
+        dayjs(purchase.endDate).endOf('D'),
         null,
         '[]'
       )
-    );
-  });
+  );
 };
 
 const CalendarForm: FC<CalendarFormProps> = ({ setValue }) => {
@@ -54,8 +53,6 @@ const CalendarForm: FC<CalendarFormProps> = ({ setValue }) => {
   const [numberDays, setNumberDays] = useState(1);
   const [purchases] = useState(PurchaseLocalStorage.getAll());
   const [maxEndDate, setMaxEndDate] = useState<Dayjs | null>();
-
-  console.log(i18n.resolvedLanguage);
 
   useEffect(() => {
     const difference = dayjs(endDate).diff(dayjs(startDate), 'day', false) + 1;

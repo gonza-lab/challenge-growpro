@@ -1,27 +1,22 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Chip } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
 import { EntityId } from '@reduxjs/toolkit';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import MuiLink from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import Bycicle from '../../interfaces/Bycicle';
 import { selectBycicleById } from '../../state/bycicles/slice';
 import { RootState } from '../../state/store';
 
 import BycicleFormComponent from '../../components/Organisms/BycicleForm';
-import CHIP_BY_TYPE from '../../constants/Chip';
-import BYCICLES from '../../constants/Bycicle';
+import GoBackButton from '../../components/Atoms/GoBackButton';
+import BycicleTypeChip from '../../components/Atoms/BycicleTypeChip';
 
 const BycicleForm = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -38,10 +33,7 @@ const BycicleForm = () => {
   return (
     <Container component="main" maxWidth="xl" sx={{ my: { xs: 2, md: 4 } }}>
       <Box sx={{ mb: { xs: 2, md: 4 }, display: 'flex' }}>
-        <MuiLink component={Link} to="/">
-          <ArrowBackIcon sx={{ mr: 1 }} />
-          <Typography>{t('go_back')}</Typography>
-        </MuiLink>
+        <GoBackButton />
       </Box>
       <Grid
         container
@@ -55,25 +47,30 @@ const BycicleForm = () => {
           md={5}
           xs={12}
           sx={{
-            height: { xs: '250px', md: '100%' },
             display: 'flex',
             flexDirection: 'column',
             gap: 2,
           }}
         >
           <Box display="flex" alignItems="center">
-            <Typography variant="h3" fontWeight="300">
+            <Typography
+              variant="h3"
+              sx={{
+                fontSize: { xs: '1.5rem', md: '2rem' },
+                mr: 1,
+                fontWeight: 300,
+              }}
+            >
               {bycicle?.name} |
             </Typography>
-            <Chip
-              sx={{ ml: 2 }}
-              size="medium"
-              label={t('bycicle.type.' + BYCICLES[bycicle?.type || 0])}
-              color={CHIP_BY_TYPE[bycicle?.type || 0].color}
-            />
+            <BycicleTypeChip type={bycicle?.type || 0} />
           </Box>
           <Paper
-            sx={{ height: '100%', borderRadius: 4, position: 'relative' }}
+            sx={{
+              borderRadius: 4,
+              position: 'relative',
+              height: { xs: '250px', md: '100%' },
+            }}
             elevation={3}
           >
             <img
@@ -89,7 +86,7 @@ const BycicleForm = () => {
             />
           </Paper>
         </Grid>
-        <Grid item md={7} xs={12} sx={{ height: { xs: 'auto', md: 668 } }}>
+        <Grid item md={7} xs={12}>
           {bycicle && <BycicleFormComponent bycicle={bycicle} />}
         </Grid>
       </Grid>

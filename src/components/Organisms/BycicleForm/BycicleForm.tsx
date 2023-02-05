@@ -1,21 +1,17 @@
 import { FC, useState } from 'react';
 import { Box, Button, Paper, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import Bycicle from '../../../interfaces/Bycicle';
 import useForm from '../../../hooks/useForm';
-import BYCICLES from '../../../constants/Bycicle';
 import getByciclePrice from '../../../utils/getByciclePrice';
 import PurchaseLocalStorage from '../../../utils/PurchaseLocalStorage';
 import toMoneyFormat from '../../../utils/toMoneyFormat';
 
-import BillingAddressForm from '../../Atoms/BillingAddressForm';
-import OrderSummary from '../../Atoms/OrderSummary';
-import PaymentForm from '../../Atoms/PaymentForm';
-import PersonalInformationForm from '../PersonalInformationForm';
 import StepperForm from '../../Atoms/StepperForm';
 import { useTranslation } from 'react-i18next';
-import Swal from 'sweetalert2';
+import BycicleFormFields from '../BycicleFormFields';
 
 const steps = [
   'bycicle_form.steps.personal_information',
@@ -123,34 +119,16 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
         Checkout
       </Typography>
       <StepperForm steps={steps} activeStep={activeStep} />
-      <form style={{ height: '100%' }}>
-        <Box sx={{ display: activeStep === 0 ? 'block' : 'none' }}>
-          <Typography variant="h6" gutterBottom mt={2}>
-            {t('bycicle_form.steps.personal_information')}
-          </Typography>
-          <PersonalInformationForm
-            onChangeInput={handleChange}
-            errors={errors}
-            setValue={setValue}
-          />
-        </Box>
-        <Box sx={{ display: activeStep === 1 ? 'block' : 'none' }}>
-          <BillingAddressForm onChangeInput={handleChange} errors={errors} />
-        </Box>
-        <Box sx={{ display: activeStep === 2 ? 'block' : 'none' }}>
-          <PaymentForm onChangeInput={handleChange} errors={errors} />
-        </Box>
-        <Box
-          sx={{ display: activeStep === steps.length - 1 ? 'block' : 'none' }}
-        >
-          <OrderSummary
-            values={form as any}
-            bycicle={bycicle}
-            total={price.total}
-            bill={price.bill}
-          />
-        </Box>
-      </form>
+      <BycicleFormFields
+        activeStep={activeStep}
+        onChange={handleChange}
+        bycicle={bycicle}
+        errors={errors}
+        form={form}
+        price={price}
+        setValue={setValue}
+        stepsLength={steps.length}
+      />
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
         {activeStep !== 0 && (
           <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>

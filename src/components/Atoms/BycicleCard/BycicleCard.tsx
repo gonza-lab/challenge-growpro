@@ -4,19 +4,18 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  Chip,
+  Box,
   Typography,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import Bycicle from '../../../interfaces/Bycicle';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { EntityId } from '@reduxjs/toolkit';
+import { useTranslation } from 'react-i18next';
+import Bycicle from '../../../interfaces/Bycicle';
 import { selectBycicleById } from '../../../state/bycicles/slice';
 import { RootState } from '../../../state/store';
-import { EntityId } from '@reduxjs/toolkit';
 import NUMBER_BASE_DAYS from '../../../constants/NumberBaseDays';
-import { useTranslation } from 'react-i18next';
-import BYCICLES from '../../../constants/Bycicle';
-import CHIP_BY_TYPE from '../../../constants/Chip';
+import BycicleTypeChip from '../BycicleTypeChip';
 
 interface BycicleCardProps {
   id: EntityId;
@@ -39,7 +38,7 @@ const BycicleCard: FC<BycicleCardProps> = ({ id }) => {
           sx={{ height: '250px' }}
           component="img"
           image={image}
-          alt="random"
+          alt="Bycicle"
         />
         <CardContent
           sx={{
@@ -50,22 +49,18 @@ const BycicleCard: FC<BycicleCardProps> = ({ id }) => {
             alignItems: 'flex-start',
           }}
         >
-          <Typography gutterBottom variant="h5" component="h2" sx={{ m: 0 }}>
-            {name}
-            <Chip
-              sx={{ ml: 1 }}
-              label={t('bycicle.type.' + BYCICLES[type])}
-              color={CHIP_BY_TYPE[type].color}
-              size="small"
-            />
-          </Typography>
+          <Box display="flex" alignItems="center" gap="6px">
+            <Typography gutterBottom variant="h5" component="h2" sx={{ m: 0 }}>
+              {name}
+            </Typography>
+            <BycicleTypeChip type={type} size="small" />
+          </Box>
           <Typography color="text.secondary">
             {NUMBER_BASE_DAYS[type]
               ? t('bycicle_card.number_base_days', {
                   numberBaseDays: NUMBER_BASE_DAYS[type],
                 })
-              : // ? `The first ${NUMBER_BASE_DAYS[type]} days cost the base price`
-                '‎'}
+              : '‎'}
           </Typography>
         </CardContent>
       </CardActionArea>
