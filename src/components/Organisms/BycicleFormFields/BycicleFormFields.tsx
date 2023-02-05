@@ -40,6 +40,7 @@ const BycicleFormFields: FC<BycicleFormFieldsProps> = ({
           errors={errors}
           setValue={setValue}
           values={form}
+          {...price}
         />
       </Box>
       <Box sx={{ display: activeStep === 1 ? 'block' : 'none' }}>

@@ -12,7 +12,7 @@ const Hero = () => {
         pb: { xs: 1, md: 3 },
       }}
     >
-      <Container maxWidth="sm">
+      <Container maxWidth="md">
         <Typography
           component="h1"
           variant="h2"

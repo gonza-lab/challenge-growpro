@@ -1,6 +1,6 @@
 {
 	"hero": {
-		"description": "Aquí se pueden alquilar bicicletas. Existen tres tipos: eléctricas, normales y antiguas."
+		"description": "Aquí se pueden alquilar bicicletas. Existen tres tipos: eléctricas, normales y antiguas. El precio base es de 10 USD al día, si el alquiler se inicia antes del día 15 de cada mes y de 12 USD al día si se inicia el día 15 o los días posteriores."
 	},
 	"bycicle_card": {
 		"number_base_days": "Los primeros {{numberBaseDays}} días cuestan el precio base"
@@ -112,5 +112,7 @@
 	"name": "Nombre",
 	"number_days_one": "Un día",
 	"number_days_other": "{{count}} días",
-	"shipping": "Envío"
+	"shipping": "Envío",
+	"calculated_price": "Precio calculado",
+	"currency": "{{val, currency(USD)}}"
 }

@@ -31,20 +31,20 @@ const BycicleForm = () => {
   }, []);
 
   return (
-    <Container component="main" maxWidth="xl" sx={{ my: { xs: 2, md: 4 } }}>
-      <Box sx={{ mb: { xs: 2, md: 4 }, display: 'flex' }}>
+    <Container component="main" maxWidth="xl" sx={{ my: { xs: 2, lg: 4 } }}>
+      <Box sx={{ mb: { xs: 2, lg: 4 }, display: 'flex' }}>
         <GoBackButton />
       </Box>
       <Grid
         container
         spacing={2}
         sx={{
-          height: { xs: 'auto', md: 668 },
+          height: { xs: 'auto', lg: 668 },
         }}
       >
         <Grid
           item
-          md={5}
+          lg={5}
           xs={12}
           sx={{
             display: 'flex',
@@ -56,7 +56,7 @@ const BycicleForm = () => {
             <Typography
               variant="h3"
               sx={{
-                fontSize: { xs: '1.5rem', md: '2rem' },
+                fontSize: { xs: '1.5rem', lg: '2rem' },
                 mr: 1,
                 fontWeight: 300,
               }}
@@ -69,7 +69,7 @@ const BycicleForm = () => {
             sx={{
               borderRadius: 4,
               position: 'relative',
-              height: { xs: '250px', md: '100%' },
+              height: { xs: '250px', lg: '100%' },
             }}
             elevation={3}
           >
@@ -86,7 +86,7 @@ const BycicleForm = () => {
             />
           </Paper>
         </Grid>
-        <Grid item md={7} xs={12}>
+        <Grid item lg={7} xs={12}>
           {bycicle && <BycicleFormComponent bycicle={bycicle} />}
         </Grid>
       </Grid>

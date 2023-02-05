@@ -1,5 +1,5 @@
-import { FC, useState } from 'react';
-import { Box, Button, Paper, Typography } from '@mui/material';
+import { FC, useEffect, useState } from 'react';
+import { Paper, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -12,6 +12,7 @@ import toMoneyFormat from '../../../utils/toMoneyFormat';
 import StepperForm from '../../Atoms/StepperForm';
 import { useTranslation } from 'react-i18next';
 import BycicleFormFields from '../BycicleFormFields';
+import BycicleFormActions from '../../Atoms/BycicleFormActions';
 
 const steps = [
   'bycicle_form.steps.personal_information',
@@ -88,6 +89,16 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
     });
   };
 
+  useEffect(() => {
+    setPrice(
+      getByciclePrice({
+        days: form.numberDays as any,
+        startDate: form.startDate as any,
+        type: bycicle.type,
+      })
+    );
+  }, [form.numberDays, form.startDate, bycicle.type]);
+
   return (
     <Paper
       variant="outlined"
@@ -112,18 +123,12 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
         setValue={setValue}
         stepsLength={steps.length}
       />
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        {activeStep !== 0 && (
-          <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-            {t('bycicle_form.back')}
-          </Button>
-        )}
-        <Button variant="contained" onClick={handleNext} sx={{ mt: 3, ml: 1 }}>
-          {activeStep === steps.length - 1
-            ? t('bycicle_form.submit.btn')
-            : t('bycicle_form.next')}
-        </Button>
-      </Box>
+      <BycicleFormActions
+        activeStep={activeStep}
+        stepsLength={steps.length}
+        onBack={handleBack}
+        onNext={handleNext}
+      />
     </Paper>
   );
 };

@@ -1,6 +1,6 @@
 {
 	"hero": {
-		"description": "Here you can rent bicycles. There are three types: electric, normal and old."
+		"description": "Here you can rent bicycles. There are three types: electric, normal and old. The base price is USD 10 per day if the rental starts before the 15th of each month and USD 12 per  if the rental starts on or after the 15th."
 	},
 	"bycicle_card": {
 		"number_base_days": "The first {{numberBaseDays}} days cost the base price"
@@ -112,5 +112,7 @@
 	"name": "Name",
 	"number_days_one": "One day",
 	"number_days_other": "{{count}} days",
-	"shipping": "Shipping"
+	"shipping": "Shipping",
+	"calculated_price": "Calculated price",
+	"currency": "{{val, currency(USD)}}"
 }

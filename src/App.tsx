@@ -1,4 +1,4 @@
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,18 +8,19 @@ import { readAllBycicles } from './state/bycicles/reducer';
 import { AppDispatch, RootState } from './state/store';
 import { BycicleState, BycicleStatus } from './state/bycicles/slice';
 
-import Layout from './components/Layout/Layout';
 import useScrollToTop from './hooks/useScrollToTop';
-import Spinner from './components/Atoms/Spinner';
+
+import Layout from './components/Layout/Layout';
+import LazySuspense from './components/Molecules/LazySuspense/LazySuspense';
 
 const BycicleForm = lazy(() => import('./pages/BycicleForm'));
 
 const App = () => {
-  useScrollToTop();
   const dispatch = useDispatch<AppDispatch>();
   const { status } = useSelector<RootState, BycicleState>(
     (state) => state.bycicles
   );
+  useScrollToTop();
 
   useEffect(() => {
     if (status !== BycicleStatus.loadingBycicles) {
@@ -35,9 +36,9 @@ const App = () => {
         <Route
           path="/bycicle/:id"
           element={
-            <Suspense fallback={<Spinner BoxProps={{ sx: { mt: 3 } }} />}>
+            <LazySuspense>
               <BycicleForm />
-            </Suspense>
+            </LazySuspense>
           }
         />
         <Route path="*" element={<NotFoundPage />} />

@@ -15,7 +15,6 @@ import '@fontsource/roboto/700.css';
 import './i18n/i18n.ts';
 import 'dayjs/locale/en';
 import 'dayjs/locale/es';
-import 'dayjs/locale/de';
 
 initServer();
 

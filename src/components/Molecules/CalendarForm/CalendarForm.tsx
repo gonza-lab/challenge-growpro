@@ -43,15 +43,21 @@ const shouldDisableDate = (
   );
 };
 
+const searchVacantDate = (id: number, purchases: Purchase[]): Dayjs => {
+  const vacantDate = searchNearVacantDate(id ? +id : 0, purchases);
+
+  return (vacantDate || dayjs()).startOf('D');
+};
+
 const CalendarForm: FC<CalendarFormProps> = ({ setValue }) => {
   const { t, i18n } = useTranslation();
   const { id } = useParams();
+  const [purchases] = useState(PurchaseLocalStorage.getAll());
   const [startDate, setStartDate] = useState<Dayjs | null>(
-    dayjs().startOf('D')
+    searchVacantDate(id ? +id : 0, purchases)
   );
   const [endDate, setEndDate] = useState<Dayjs | null>(dayjs().add(2, 'days'));
   const [numberDays, setNumberDays] = useState(1);
-  const [purchases] = useState(PurchaseLocalStorage.getAll());
   const [maxEndDate, setMaxEndDate] = useState<Dayjs | null>();
 
   useEffect(() => {
@@ -62,14 +68,6 @@ const CalendarForm: FC<CalendarFormProps> = ({ setValue }) => {
     setValue('numberDays', difference);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate]);
-
-  useEffect(() => {
-    const vacantDate = searchNearVacantDate(id ? +id : 0, purchases);
-    if (vacantDate) {
-      setStartDate(vacantDate.startOf('D'));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (startDate) {

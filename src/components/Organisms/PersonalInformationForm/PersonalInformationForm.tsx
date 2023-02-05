@@ -20,12 +20,15 @@ interface PersonalInformationFormProps {
   };
   setValue: any;
   values: { [name: string]: string | number };
+  total: number;
+  bill: string;
 }
 const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
   onChangeInput,
   errors,
   setValue,
   values,
+  total,
 }) => {
   const { t } = useTranslation();
   return (
@@ -100,6 +103,12 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
           </Typography>
         </Grid>
         <CalendarForm setValue={setValue} />
+        <Grid item xs={12}>
+          <Typography variant="h6" gutterBottom>
+            {t('calculated_price')}:{' '}
+            {Number.isNaN(total) ? ' ' : t('currency', { val: total })}
+          </Typography>
+        </Grid>
       </Grid>
     </>
   );

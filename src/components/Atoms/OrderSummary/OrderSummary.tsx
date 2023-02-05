@@ -70,7 +70,7 @@ const OrderSummary: FC<OrderSummaryProps> = ({
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {toMoneyFormat(total)}
+            {t('currency', { val: total })}
           </Typography>
         </ListItem>
       </List>
