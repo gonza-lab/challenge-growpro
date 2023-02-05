@@ -1,4 +1,17 @@
-# Challenge GrowPro
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">GrowProp Challenge</h3>
+
+  <p align="center">
+    A bike rental app 🚴
+    <br />
+    <a href="https://challenge-growpro.vercel.app/"><strong>View demo »</strong></a>
+    
+  </p>
+</div>
 
 ## Getting Started
 
@@ -12,6 +25,15 @@
 ## Decisions
 
 Explanation of decisions made [here](https://gonzaloflores.notion.site/GrowProp-Challenge-Decisiones-17f4d69337d644fcb4c36a08a8f0c67b)
+
+## Built With
+
+* [![React][React.js]][React-url]
+* [![Redux][Redux.js]][Redux-url]
+* [![ReactRouter][ReactRouter.js]][ReactRouter-url]
+* [![Materialui][Materialui.js]][Materialui-url]
+* [![Typescript][typescript]][typescript-url]
+
 
 ## Available Scripts
 
@@ -55,3 +77,14 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Redux.js]: https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white
+[Redux-url]: https://redux.js.org/
+[ReactRouter.js]: https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white
+[ReactRouter-url]: https://reactrouter.com/en/main
+[Materialui.js]: https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white
+[Materialui-url]: https://mui.com/core/
+[typescript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
+[typescript-url]: https://www.typescriptlang.org/
