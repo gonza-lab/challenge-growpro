@@ -1,19 +1,13 @@
-import { useEffect, lazy } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import NotFoundPage from './pages/404';
-import BycicleHome from './pages/BycicleHome/';
 import { readAllBycicles } from './state/bycicles/reducer';
 import { AppDispatch, RootState } from './state/store';
 import { BycicleState, BycicleStatus } from './state/bycicles/slice';
 
 import useScrollToTop from './hooks/useScrollToTop';
 
-import Layout from './components/Layout/Layout';
-import LazySuspense from './components/Molecules/LazySuspense/LazySuspense';
-
-const BycicleForm = lazy(() => import('./pages/BycicleForm'));
+import Router from './Router';
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -29,22 +23,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  return (
-    <Routes>
-      <Route element={<Layout />} path="/">
-        <Route index element={<BycicleHome />} />
-        <Route
-          path="/bycicle/:id"
-          element={
-            <LazySuspense>
-              <BycicleForm />
-            </LazySuspense>
-          }
-        />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
-  );
+  return <Router />;
 };
 
 export default App;
