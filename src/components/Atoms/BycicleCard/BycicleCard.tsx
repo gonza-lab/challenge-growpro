@@ -33,7 +33,7 @@ const BycicleCard: FC<BycicleCardProps> = ({ id }) => {
 
   return (
     <Card>
-      <CardActionArea onClick={() => navigate('/bycicle/' + id)}>
+      <CardActionArea onClick={() => navigate('/bycicle-form/' + id)}>
         <CardMedia
           sx={{ height: '250px' }}
           component="img"

@@ -18,7 +18,7 @@ const routes: RouteObject[] = [
         element: <BycicleHome />,
       },
       {
-        path: '/bycicle/:id',
+        path: '/bycicle-form/:id',
         element: (
           <LazySuspense>
             <BycicleForm />
