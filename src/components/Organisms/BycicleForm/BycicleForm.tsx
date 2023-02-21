@@ -51,13 +51,14 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
       handleSubmit();
       return;
     } else if (activeStep === steps.length - 2) {
-      setPrice(
-        getByciclePrice({
+      setPrice({
+        total: getByciclePrice({
           days: form.numberDays as any,
           startDate: form.startDate as any,
           type: bycicle.type,
-        })
-      );
+        }),
+        bill: '',
+      });
     }
 
     setActiveStep(activeStep + 1);
@@ -90,13 +91,14 @@ const BycicleForm: FC<BycicleFormProps> = ({ bycicle }) => {
   };
 
   useEffect(() => {
-    setPrice(
-      getByciclePrice({
+    setPrice({
+      total: getByciclePrice({
         days: form.numberDays as any,
         startDate: form.startDate as any,
         type: bycicle.type,
-      })
-    );
+      }),
+      bill: '',
+    });
   }, [form.numberDays, form.startDate, bycicle.type]);
 
   return (

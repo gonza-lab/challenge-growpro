@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import isSameOAfter from 'dayjs/plugin/isSameOrAfter';
-
-dayjs.extend(isSameOAfter);
+import BASE_PRICES from '../constants/BasePrices';
+import BYCICLES from '../constants/Bycicle';
+import BONUS_DAYS_BY_TYPE from '../constants/BonusDaysByType';
 
 interface GetByciclePrice {
   days: number;
@@ -13,38 +13,17 @@ const getByciclePrice = ({
   days,
   startDate,
   type,
-}: GetByciclePrice): { total: number; bill: string } => {
-  let total = 0;
-  let bill = '';
-  let basePrice = dayjs(startDate).date() >= 15 ? 12 : 10;
+}: GetByciclePrice): number => {
+  let BASE_PRICE =
+    dayjs(startDate).date() >= 15
+      ? BASE_PRICES.AFTER_15TH
+      : BASE_PRICES.BEFORE_15TH;
 
-  switch (type) {
-    case 0:
-      total = basePrice * days;
-      bill = `${basePrice} * ${days}`;
-      break;
+  let BONUS_DAYS = BONUS_DAYS_BY_TYPE[BYCICLES[type]];
 
-    case 1:
-      total = days <= 3 ? basePrice : basePrice + (days - 3) * basePrice;
-      bill =
-        days <= 3
-          ? '' + basePrice
-          : `${basePrice} + (${days} - 3) * ${basePrice}`;
-      break;
+  let total = ((days <= BONUS_DAYS ? 0 : days - BONUS_DAYS) + 1) * BASE_PRICE;
 
-    case 2:
-      total = days <= 5 ? basePrice : basePrice + (days - 5) * basePrice;
-      bill =
-        days <= 5
-          ? '' + basePrice
-          : `${basePrice} + (${days} - 5) * ${basePrice}`;
-      break;
-
-    default:
-      break;
-  }
-
-  return { total, bill };
+  return total;
 };
 
 export default getByciclePrice;
